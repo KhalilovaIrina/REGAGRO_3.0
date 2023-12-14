@@ -1,7 +1,6 @@
 package data;
 
 import com.github.javafaker.Faker;
-import lombok.Value;
 
 import java.time.LocalDate;
 import java.util.Locale;
@@ -19,17 +18,8 @@ public class DataGenerator {
     }
 
     public static String getNumber(int lenght) {
-
         return faker.number().digits(lenght);
     }
-
-
-    private static LocalDate pastDate() {
-        LocalDate invalid = LocalDate.now().minusMonths(range(8, 24));
-        return invalid;
-    }
-
-
 
     public static String getLocalDate() {
         String day = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
@@ -39,8 +29,8 @@ public class DataGenerator {
     }
     public static String getPastDate() {
         String day = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
-        String month = pastDate().format(DateTimeFormatter.ofPattern("MM"));
-        String year = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
+        String month = LocalDate.now().minusMonths(range(6, 10)).format(DateTimeFormatter.ofPattern("MM"));
+        String year = LocalDate.now().minusYears(range(0, 2)).format(DateTimeFormatter.ofPattern("yyyy"));
         return (day+month+year);
     }
 
