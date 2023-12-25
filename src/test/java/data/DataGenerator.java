@@ -29,8 +29,8 @@ public class DataGenerator {
     }
     public static String getPastDate() {
         String day = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
-        String month = LocalDate.now().minusMonths(range(6, 10)).format(DateTimeFormatter.ofPattern("MM"));
-        String year = LocalDate.now().minusYears(range(0, 2)).format(DateTimeFormatter.ofPattern("yyyy"));
+        String month = LocalDate.now().minusMonths(range(1, 11)).format(DateTimeFormatter.ofPattern("MM"));
+        String year = LocalDate.now().minusYears(range(1, 3)).format(DateTimeFormatter.ofPattern("yyyy"));
         return (day+month+year);
     }
 

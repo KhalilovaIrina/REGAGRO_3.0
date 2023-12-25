@@ -72,9 +72,9 @@ public class RegistrationHelper {
         $(" #addAnimalForm > div:nth-child(1) > div:nth-child(3) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span").click();
 
         //Свиньи
-        // $("#select2--results > li:nth-child(3) > ul > li:nth-child(1)").click();
+         $("#select2--results > li:nth-child(3) > ul > li:nth-child(1)").click();
         //КРС
-        $("#select2--results > li:nth-child(1) > ul > li:nth-child(1)").click();
+       // $("#select2--results > li:nth-child(1) > ul > li:nth-child(1)").click();
 
         // Идентификация
         $("#addAnimalForm > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div > div.row.mb-3 > " +
@@ -110,7 +110,7 @@ public class RegistrationHelper {
         if (!$("body > span > span > span.select2-search.select2-search--dropdown > input").isDisplayed()) {
             firstRegistration();
         }
-        $("body > span > span > span.select2-search.select2-search--dropdown > input").setValue("шея");
+        $("body > span > span > span.select2-search.select2-search--dropdown > input").setValue("холка");
         $("body > span > span > span.select2-search.select2-search--dropdown > input").pressEnter();
 
         // Дата первичного маркирования
@@ -125,13 +125,13 @@ public class RegistrationHelper {
         $("body > span > span > span.select2-search.select2-search--dropdown > input").pressEnter();
 
         $("#addAnimalForm > div:nth-child(1) > div:nth-child(10) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span").click();
-        $("body > span > span > span.select2-search.select2-search--dropdown > input").setValue("чалая");
+        $("body > span > span > span.select2-search.select2-search--dropdown > input").setValue("рябая");
         $("body > span > span > span.select2-search.select2-search--dropdown > input").pressEnter();
 
         $("#addAnimalForm > div:nth-child(1) > div:nth-child(11) > div > div.col-6.mb-3.form-group.pb-3 > div > input.form-control.flatpickr.input").click();
         $("#addAnimalForm > div:nth-child(1) > div:nth-child(11) > div > div.col-6.mb-3.form-group.pb-3 > div > input.form-control.flatpickr.input.active").setValue(DataGenerator.getPastDate());
         $("#addAnimalForm > div:nth-child(1) > div:nth-child(11) > div > div.col-6.mb-3.form-group.pb-3 > div > input.form-control.flatpickr.input.active").pressEnter();
-        $("input[id=male]").click();
+        $("input[id=female]").click();
         $("#addAnimalForm > div:nth-child(1) > div:nth-child(15) > div > div:nth-child(2) > div > input").setValue(DataGenerator.getNickname());
 
         // Содержание
@@ -179,7 +179,7 @@ public class RegistrationHelper {
         if (!$("body > span > span > span.select2-search.select2-search--dropdown > input").isDisplayed()) {
             firstRegistration();
         }
-        $("body > span > span > span.select2-search.select2-search--dropdown > input").setValue("шея");
+        $("body > span > span > span.select2-search.select2-search--dropdown > input").setValue("холка");
         $("body > span > span > span.select2-search.select2-search--dropdown > input").pressEnter();
 
         // Дата первичного маркирования

@@ -20,7 +20,7 @@ public class RegClassTest {
     @DisplayName("Многократная регистрация животного")
     @RepeatedTest(6)
     void regIndividualAnimals() {
-        int max = 100;
+        int max = 200;
         int count = 0;
         helper.firstRegistration();
         do {
