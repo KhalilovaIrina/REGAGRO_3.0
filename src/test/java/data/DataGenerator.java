@@ -17,8 +17,13 @@ public class DataGenerator {
         return name;
     }
 
-    public static String getNumber(int lenght) {
-        return faker.number().digits(lenght);
+    public static String getFullName() {
+        String fullName = faker.name().fullName();
+        return fullName;
+    }
+
+    public static String getNumber(int length) {
+        return faker.number().digits(length);
     }
 
     public static String getLocalDate() {
