@@ -1,4 +1,4 @@
-package org.regagro.dataGenerator;
+package dataGenerator;
 
 import com.github.javafaker.Faker;
 

@@ -2,7 +2,7 @@ package Pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.regagro.dataGenerator.DataGenerator;
+import dataGenerator.DataGenerator;
 import org.junit.jupiter.api.DisplayName;
 
 import java.time.Duration;

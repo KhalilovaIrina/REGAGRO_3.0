@@ -10,8 +10,8 @@ import Pages.HomePage;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import org.regagro.helpers.DBHelper;
-import org.regagro.dataGenerator.DataGenerator;
+import helpers.DBHelper;
+import dataGenerator.DataGenerator;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

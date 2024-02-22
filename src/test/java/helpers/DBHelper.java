@@ -1,4 +1,4 @@
-package org.regagro.helpers;
+package helpers;
 
 import org.junit.jupiter.api.DisplayName;
 

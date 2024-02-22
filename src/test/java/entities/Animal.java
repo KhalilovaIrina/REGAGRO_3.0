@@ -1,11 +1,7 @@
-package org.regagro.entities;
+package entities;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import org.regagro.handbooks.MarkerTypes;
-import org.regagro.helpers.DBHelper;
 
+import handbooks.AnimalHandbooks;
 
 public class Animal {
     private String id;
@@ -29,7 +25,7 @@ public class Animal {
 
     public class AnimalBuilder{
        private Animal animal;
-       MarkerTypes markerTypes = new MarkerTypes();
+       AnimalHandbooks handbooks = new AnimalHandbooks();
         public AnimalBuilder(){
            this.animal = new Animal();
        }
@@ -39,7 +35,7 @@ public class Animal {
             return this;
         }
         public AnimalBuilder setMarkerType(){
-            animal.markerType = markerTypes.getRandomMarkerType(animal.kind);
+            animal.markerType = handbooks.getRandomMarkerType(animal.kind);
             return this;
         }
 

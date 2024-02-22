@@ -1,4 +1,4 @@
-package org.regagro.entities;
+package entities;
 
 public class EnterpriseData {
 }
