@@ -1,10 +1,10 @@
 package Pages;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import data.DataGenerator;
+import org.regagro.dataGenerator.DataGenerator;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class OwnerModalWindow {
@@ -13,20 +13,25 @@ public class OwnerModalWindow {
     private SelenideElement ownerTypeSelection = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/div[2]/div/div/div[2]/div[2]/form/div[1]/div[2]/div/span/span[1]/span");
     private SelenideElement input = $x("/html/body/span/span/span[1]/input");
     private SelenideElement innField10 = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/div[2]/div/div/div[2]/div[2]/form/div[2]/div[2]/div/input");
+    private SelenideElement innField = $("#searchOwnerStep1 > div.row.align-items-end.mb-3.inn > div:nth-child(1) > input");
     private SelenideElement kppField9 = $x("//*[@id=addOwnerForm]/div[3]/div[2]/div/input");
     private SelenideElement nameField = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/div[2]/div/div/div[2]/div[2]/form/div[4]/div[2]/textarea");
     private SelenideElement regionSelection = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/div[2]/div/div/div[2]/div[2]/form/div[6]/div[2]/div[2]/div/span");
     private SelenideElement citySelection = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/div[2]/div/div/div[2]/div[2]/form/div[6]/div[4]/div[2]/div");
     private SelenideElement registrationButton = $x("//button[contains(text(),'Зарегистрировать')]");
     private SelenideElement okButton = $x("//button[contains(text(),'Ok')]");
+    private SelenideElement findButton = $x("//button[contains(text(),'Найти')]");
+    private SelenideElement description = $("div[class=item-descritpion]");
+    private SelenideElement chooseButton = $x("//button[contains(text(),'Выбрать')]");
 
-    public OwnerModalWindow(SelenideElement action) {
-        if (action.getText().contains("Регистрация")) {
-            headingAdd.isDisplayed();
-        }
-        headingEdit.isDisplayed();
+    public boolean isOwnerNotRegistered() {
+        if (headingAdd.isDisplayed() & headingEdit.isDisplayed()) {
+            return true;
+        } else return false;
     }
-private static String inn = DataGenerator.getNumber(10);
+
+    private static String inn = DataGenerator.getNumber(10);
+
     public void getNewOwnerLegalEntity(String inn) {
         ownerTypeSelection.click();
         input.setValue("Юридическое");
@@ -43,13 +48,22 @@ private static String inn = DataGenerator.getNumber(10);
         registrationButton.click();
     }
 
-    public String getInnNewOwner(){
+    public String getInnNewOwner() {
         return inn;
     }
 
-    public void editInn(String newInn){
+    public void editInn(String newInn) {
         innField10.clear();
         innField10.setValue(newInn);
         okButton.click();
     }
+
+    public void getOwner() {
+        innField.click();
+        innField.setValue("7736280235");
+        findButton.click();
+        description.click();
+        chooseButton.click();
+    }
+
 }

@@ -1,17 +1,15 @@
 package Pages;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.DisplayName;
 
-
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
 
-    private SelenideElement user =$x("/html/body/nav/div/div[2]/ul[2]/li[1]/a");
-
-    private SelenideElement logout =$x("/html/body/nav/div/div[2]/ul[2]/li[1]/div/div");
+    private SelenideElement user =$x("/html/body/nav/div/div[2]/ul[2]/li[2]/a");
+    private SelenideElement logout =$x("/html/body/nav/div/div[2]/ul[2]/li[2]/div/div");
     // Сайдбар
     private SelenideElement sideBar = $x("//*[@id=sidebar]");
     private SelenideElement hideSideBar = $x("//button[text()='Свернуть']");
@@ -62,6 +60,7 @@ public class BasePage {
     public AddEnterprisePage getAddEnterprisePage(){
         registrationAccordionButton.click();
         objectRegistrationAccordionButton.click();
+        Selenide.sleep(2000);
         return new AddEnterprisePage();
     }
 

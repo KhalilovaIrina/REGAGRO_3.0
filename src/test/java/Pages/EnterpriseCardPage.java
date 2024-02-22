@@ -1,8 +1,6 @@
 package Pages;
 
 import com.codeborne.selenide.SelenideElement;
-import data.DataGenerator;
-import org.junit.jupiter.api.Assertions;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -43,7 +41,7 @@ public class EnterpriseCardPage {
         actionsButton.click();
         actionsMenu.isDisplayed();
         editOwnerButton.click();
-        OwnerModalWindow ownerModalWindow = new OwnerModalWindow(editOwnerButton);
+        OwnerModalWindow ownerModalWindow = new OwnerModalWindow();
         ownerModalWindow.editInn(newNumber);
     }
 }

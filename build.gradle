@@ -10,6 +10,7 @@ sourceCompatibility = 11
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 
+
 allure {
     version = '2.20.1'
     useJUnit5 {
@@ -29,9 +30,16 @@ dependencies {
     testImplementation 'com.google.code.gson:gson:2.8.6'
     testImplementation 'org.projectlombok:lombok:1.18.22'
     testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
+    testImplementation 'commons-dbutils:commons-dbutils:1.7'
+    testImplementation 'org.mariadb.jdbc:mariadb-java-client:2.1.2'
 }
 
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+    maxParallelForks = 1 // количество параллельных форков для тестов
+//    systemProperty 'dbUrl', System.getProperty('dbUrl', 'jdbc:mariadb:https://pma.vo.regagro.ru:3306/vo-dev-ra-v3')
+//    systemProperty 'dbUser', System.getProperty('dbUser', 'regagro')
+//    systemProperty 'dbPassword', System.getProperty('dbPassword', 'TTcbH10CVIIL9')
+
 }

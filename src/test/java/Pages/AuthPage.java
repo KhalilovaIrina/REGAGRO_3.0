@@ -1,11 +1,6 @@
 package Pages;
 
-import Pages.AnimalPassportPage;
-import Pages.HomePage;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
-import data.DataGenerator;
 import org.junit.jupiter.api.DisplayName;
 
 import java.time.Duration;

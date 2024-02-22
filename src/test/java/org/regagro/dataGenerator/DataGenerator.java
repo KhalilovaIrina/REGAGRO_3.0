@@ -1,8 +1,9 @@
-package data;
+package org.regagro.dataGenerator;
 
 import com.github.javafaker.Faker;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 import java.time.format.DateTimeFormatter;
 
@@ -44,5 +45,9 @@ public class DataGenerator {
         Random random = new Random();
         int range = min + random.nextInt(max - min + 1);
         return range;
+    }
+    public String getRandomValue(List<String> handbooks){
+        Random random = new Random();
+        return handbooks.get(random.nextInt(handbooks.size()));
     }
 }
