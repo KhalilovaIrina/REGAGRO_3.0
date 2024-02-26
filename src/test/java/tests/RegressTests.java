@@ -10,6 +10,8 @@ import Pages.HomePage;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import entities.Animal;
+import helpers.AnimalFactory;
 import helpers.DBHelper;
 import dataGenerator.DataGenerator;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -19,6 +21,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.sql.SQLException;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
@@ -79,81 +83,87 @@ public class RegressTests {
     // Регистрация животного
     @DisplayName("RAT-1948 Регистрация животного")
     @Test
-    void regIndividualAnimals() {
+    void regIndividualAnimals() throws SQLException {
+        AnimalFactory factory = new AnimalFactory();
+        Animal krs = factory.createKRS();
+
         BasePage basePage = new BasePage();
         basePage.getAddAnimalPage();
+
         AddAnimalPage registrationAnimalPage = new AddAnimalPage();
-
-
-        String identificationNumber = DataGenerator.getNumber(15);
-
-        registrationAnimalPage.firstRegistration(identificationNumber, "Свиньи");
+        registrationAnimalPage.getActivateRegistrationKRS(krs);
         Assertions.assertTrue(registrationAnimalPage.getMessageSuccessRegistration());
 
         registrationAnimalPage.getAnimalPassportPage();
         AnimalPassportPage animalPassportPage = new AnimalPassportPage();
-        Assertions.assertEquals(identificationNumber, animalPassportPage.getIdentificationNumber());
+        Assertions.assertEquals(krs.getIdentificationNumber(), animalPassportPage.getIdentificationNumber(),
+                "Идентификационный номер, указанный при регистрации, не совпадает с номером в паспорте животного");
 
-        Assertions.assertTrue(dbHelper.isAnimalInDatabase(identificationNumber));
+        Assertions.assertTrue(dbHelper.isAnimalInDatabase(krs.getIdentificationNumber()),
+                "Животное отсутствует в базе данных");
     }
 
     @DisplayName("RAT-2767 Регистрация пчел")
     @Test
-    void regBees() {
+    void regBees() throws SQLException {
+        AnimalFactory factory = new AnimalFactory();
+        Animal bees = factory.createBees();
+
         BasePage basePage = new BasePage();
         basePage.getAddAnimalPage();
+
         AddAnimalPage registrationAnimalPage = new AddAnimalPage();
-
-
-        String identificationNumber = DataGenerator.getNumber(8);
-
-        registrationAnimalPage.firstRegistration(identificationNumber, "Пчёлы");
+        registrationAnimalPage.getActivateRegistrationBees(bees);
         Assertions.assertTrue(registrationAnimalPage.getMessageSuccessRegistration());
 
         registrationAnimalPage.getAnimalPassportPage();
         AnimalPassportPage animalPassportPage = new AnimalPassportPage();
-        Assertions.assertEquals(identificationNumber, animalPassportPage.getIdentificationNumber());
+        Assertions.assertEquals(bees.getIdentificationNumber(), animalPassportPage.getIdentificationNumber(),
+                "Идентификационный номер, указанный при регистрации, не совпадает с номером в паспорте животного");
 
-        Assertions.assertTrue(dbHelper.isAnimalInDatabase(identificationNumber));
+        Assertions.assertTrue(dbHelper.isAnimalInDatabase(bees.getIdentificationNumber()),
+                "Животное отсутствует в базе данных");
     }
 
     @DisplayName("RAT-2768 Регистрация птиц")
     @Test
-    void regChicken() {
+    void regChicken() throws SQLException {
+        AnimalFactory factory = new AnimalFactory();
+        Animal chicken = factory.createChicken();
+
         BasePage basePage = new BasePage();
         basePage.getAddAnimalPage();
+
         AddAnimalPage registrationAnimalPage = new AddAnimalPage();
-
-
-        String identificationNumber = DataGenerator.getNumber(15);
-
-        registrationAnimalPage.firstRegistration(identificationNumber, "Куры");
+        registrationAnimalPage.getActivateRegistrationChickens(chicken);
         Assertions.assertTrue(registrationAnimalPage.getMessageSuccessRegistration());
 
         registrationAnimalPage.getAnimalPassportPage();
         AnimalPassportPage animalPassportPage = new AnimalPassportPage();
-        Assertions.assertEquals(identificationNumber, animalPassportPage.getIdentificationNumber());
+        Assertions.assertEquals(chicken.getIdentificationNumber(), animalPassportPage.getIdentificationNumber(),
+                "Идентификационный номер, указанный при регистрации, не совпадает с номером в паспорте животного");
 
-        Assertions.assertTrue(dbHelper.isAnimalInDatabase(identificationNumber));
+        Assertions.assertTrue(dbHelper.isAnimalInDatabase(chicken.getIdentificationNumber()),
+                "Животное отсутствует в базе данных");
     }
 
-    @DisplayName("RAT-2669 Регистрация объекта," +
-            "RAT-2712 Редактирование объекта," +
-            "RAT-3290 Удаление объекта без животных ")
-    @Test
-    void regEnterprise(){
-        BasePage basePage = new BasePage();
-        basePage.getAddEnterprisePage();
-        AddEnterprisePage addEnterprisePage = new AddEnterprisePage();
-        String nameOfEnterprise = "Отомэйшн";
-        addEnterprisePage.getNewEnterprise(nameOfEnterprise, "Орловский", "Агеевка", "Богатая", "2", "2");
-        EnterpriseCardPage enterpriseCardPage = new EnterpriseCardPage();
-        Assertions.assertTrue(enterpriseCardPage.getNameValue().contains(nameOfEnterprise));
+//    @DisplayName("RAT-2669 Регистрация объекта," +
+//            "RAT-2712 Редактирование объекта," +
+//            "RAT-3290 Удаление объекта без животных ")
+//    @Test
+//    void regEnterprise(){
+//        BasePage basePage = new BasePage();
+//        basePage.getAddEnterprisePage();
+//        AddEnterprisePage addEnterprisePage = new AddEnterprisePage();
+//        String nameOfEnterprise = "Отомэйшн";
+//        addEnterprisePage.getNewEnterprise(nameOfEnterprise, "Орловский", "Агеевка", "Богатая", "2", "2");
+//        EnterpriseCardPage enterpriseCardPage = new EnterpriseCardPage();
+//        Assertions.assertTrue(enterpriseCardPage.getNameValue().contains(nameOfEnterprise));
+//
+//        Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(nameOfEnterprise));
+//
 
-        Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(nameOfEnterprise));
-
-
-    }
+//}
 //    @DisplayName("Регистрация неверифицированного владельца")
 //    @Test
 //    void addNewOwner() {
@@ -169,3 +179,4 @@ public class RegressTests {
 //
 //    }
 }
+

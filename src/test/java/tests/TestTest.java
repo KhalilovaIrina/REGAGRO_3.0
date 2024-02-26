@@ -1,5 +1,10 @@
 package tests;
 
+import entities.Animal;
+import helpers.AnimalFactory;
+
+import java.sql.SQLException;
+
 public class TestTest {
 //    public static void main(String[] args) throws SQLException {
 //        helpers.DBHelper dbHelper = new helpers.DBHelper();
@@ -14,7 +19,9 @@ public class TestTest {
 //        System.out.println(markerTypes.getRandomMarkerType("Пчёлы"));
 //    }
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws SQLException {
+        AnimalFactory factory = new AnimalFactory();
+        Animal chicken = factory.createChicken();
+        System.out.println(chicken.getKeepPlace());
     }
 }

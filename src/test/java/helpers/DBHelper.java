@@ -1,6 +1,7 @@
 package helpers;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -43,10 +44,11 @@ public class DBHelper {
         }
     }
 
-    @DisplayName("Получить список значений одного столбца")
+    @DisplayName("Получить список значений типа String одного столбца")
     public List<String> getColumnData(String columnName, String table) throws SQLException {
-        Connection conn = getConnection(handbooks);
         List<String> data = new ArrayList<>();
+        Connection conn = getConnection(handbooks);
+
         try {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT " + columnName + " FROM " + table);
@@ -59,23 +61,55 @@ public class DBHelper {
         return data;
     }
 
-    @DisplayName("Получить виды и их id типа String:Integer")
-    public Map<String, Integer> getMapOfKindAndId(String kind, String id, String table){
-        Map<String, Integer> kindAndId = new HashMap<>();
+    @DisplayName("Получить список значений одного столбца")
+    public List<Integer> getColumnDataInt(String columnName, String table) throws SQLException {
+        List<Integer> data = new ArrayList<>();
         Connection conn = getConnection(handbooks);
         try {
             Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT " + kind + ", " + id + " FROM " + table);
-            while (resultSet.next()){
-                kindAndId.put(resultSet.getString(kind), resultSet.getInt(id));
+            ResultSet resultSet = statement.executeQuery("SELECT " + columnName + " FROM " + table);
+            while (resultSet.next()) {
+                data.add(resultSet.getInt(columnName));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return kindAndId;
+        return data;
     }
 
-    @DisplayName("Получить список значений одного столбца с условием")
+    @DisplayName("Получить данные и их id типа String:Integer")
+    public Map<String, Integer> getMapWithKeyString(String columnName, String id, String table) {
+        Map<String, Integer> map = new HashMap<>();
+        Connection conn = getConnection(handbooks);
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT " + columnName + ", " + id + " FROM " + table);
+            while (resultSet.next()) {
+                map.put(resultSet.getString(columnName), resultSet.getInt(id));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @DisplayName("Получить данные и их id типа Integer:String")
+    public Map<Integer, String> getMapWithKeyInteger(String columnName, int id, String table) {
+        Map<Integer, String> map = new HashMap<>();
+        Connection conn = getConnection(handbooks);
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT " + columnName + ", " + id + " FROM " + table);
+            while (resultSet.next()) {
+                map.put(resultSet.getInt(id), resultSet.getString(columnName));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @DisplayName("Получить список значений одного столбца с 1 условием")
     public List<String> getValuesOfConditions(String columnNameSelect, String columnNameCondition, String table, int condition) {
         List<String> values = new ArrayList<>();
         Connection conn = getConnection(handbooks);
@@ -91,7 +125,60 @@ public class DBHelper {
         }
         return values;
     }
+    @DisplayName("Получить список значений типа int одного столбца с 1 условием")
+    public List<Integer> getIntValuesOfConditions(String columnNameSelect, String columnNameCondition, String table, int condition) {
+        List<Integer> values = new ArrayList<>();
+        Connection conn = getConnection(handbooks);
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery
+                    ("SELECT " + columnNameSelect + " FROM " + table + " WHERE " + columnNameCondition + " = " + condition);
+            while (resultSet.next()) {
+                values.add(resultSet.getInt(columnNameSelect));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return values;
+    }
+    @DisplayName("Получить список значений одного столбца с 2 условиями")
+    public List<String> getValuesOfTwoConditions
+            (String columnNameSelect, String columnNameFirstCondition, String columnNameSecondCondition,
+             int condition1, String condition2, String table) {
+        List<String> values = new ArrayList<>();
+        Connection conn = getConnection(handbooks);
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery
+                    ("SELECT " + columnNameSelect + " FROM " + table + " WHERE " + columnNameFirstCondition + " = " + condition1 +
+                            " AND " + columnNameSecondCondition + " = " + condition2);
+            while (resultSet.next()) {
+                values.add(columnNameSelect);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return values;
+    }
 
+    public List<Integer> getValuesOfTwoConditionsInt
+            (String columnNameSelect, String columnNameFirstCondition, String columnNameSecondCondition,
+             int condition1, int condition2, String table) {
+        List<Integer> values = new ArrayList<>();
+        Connection conn = getConnection(handbooks);
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery
+                    ("SELECT " + columnNameSelect + " FROM " + table + " WHERE " + columnNameFirstCondition + " = " + condition1 +
+                            " AND " + columnNameSecondCondition + " = " + condition2);
+            while (resultSet.next()) {
+                values.add(Integer.valueOf(columnNameSelect));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return values;
+    }
 
     public boolean isAnimalInDatabase(String number) {
         Connection conn = getConnection(regagro_3_0);
