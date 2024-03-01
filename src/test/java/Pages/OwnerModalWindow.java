@@ -61,7 +61,7 @@ public class OwnerModalWindow {
 
     public void getOwner(Enterprise enterprise) {
         innField.click();
-        innField.setValue(enterprise.ownerInn);
+        innField.setValue(enterprise.getOwnerInn());
         findButton.click();
         description.click();
         chooseButton.click();

@@ -17,7 +17,7 @@ public class Enterprise {
     private String countOfAnimals;
 
     public String getOwnerInn() {
-        return owner;
+        return ownerInn;
     }
 
     public String getName() {
