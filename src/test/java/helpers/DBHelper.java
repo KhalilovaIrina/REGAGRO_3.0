@@ -1,9 +1,13 @@
 package helpers;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +49,7 @@ public class DBHelper {
     }
 
     @DisplayName("Получить список значений типа String одного столбца")
-    public List<String> getColumnData(String columnName, String table) throws SQLException {
+    public List<String> getColumnData(String columnName, String table){
         List<String> data = new ArrayList<>();
         Connection conn = getConnection(handbooks);
 
@@ -62,7 +66,7 @@ public class DBHelper {
     }
 
     @DisplayName("Получить список значений одного столбца")
-    public List<Integer> getColumnDataInt(String columnName, String table) throws SQLException {
+    public List<Integer> getColumnDataInt(String columnName, String table) {
         List<Integer> data = new ArrayList<>();
         Connection conn = getConnection(handbooks);
         try {
@@ -172,7 +176,8 @@ public class DBHelper {
                     ("SELECT " + columnNameSelect + " FROM " + table + " WHERE " + columnNameFirstCondition + " = " + condition1 +
                             " AND " + columnNameSecondCondition + " = " + condition2);
             while (resultSet.next()) {
-                values.add(Integer.valueOf(columnNameSelect));
+                int value = resultSet.getInt(columnNameSelect);
+                values.add(value);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -224,8 +229,6 @@ public class DBHelper {
                 e.printStackTrace();
             }
         }
-
-
     }
 
 

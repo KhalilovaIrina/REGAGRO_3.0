@@ -1,14 +1,16 @@
 package helpers;
 
 import entities.Animal;
+import entities.AnimalGroup;
 
 import java.sql.SQLException;
 
 public class AnimalFactory {
     public Animal createChicken() throws SQLException {
-        Animal chicken = new Animal.AnimalBuilder()
-                .setAnimalKind("Куры")
-                .setMarkerType()
+        String kind = "Куры";
+        return new Animal.AnimalBuilder()
+                .setAnimalKind(kind)
+                .setMarkerType(kind)
                 .setMarkerPlace()
                 .setIdentificationNumber()
                 .setFirstMarkerDate()
@@ -21,13 +23,13 @@ public class AnimalFactory {
                 .setKeepPlace()
                 .setProductDirection()
                 .build();
-        return chicken;
     }
 
     public Animal createKRS() throws SQLException {
-        Animal krs = new Animal.AnimalBuilder()
-                .setAnimalKind("Крупный рогатый скот")
-                .setMarkerType()
+        String kind = "Крупный рогатый скот";
+        return new Animal.AnimalBuilder()
+                .setAnimalKind(kind)
+                .setMarkerType(kind)
                 .setMarkerPlace()
                 .setIdentificationNumber()
                 .setFirstMarkerDate()
@@ -40,13 +42,13 @@ public class AnimalFactory {
                 .setKeepPlace()
                 .setProductDirection()
                 .build();
-        return krs;
     }
 
     public Animal createBees() throws SQLException {
-        Animal bees = new Animal.AnimalBuilder()
-                .setAnimalKind("Пчёлы")
-                .setMarkerType()
+        String kind = "Пчёлы";
+        return new Animal.AnimalBuilder()
+                .setAnimalKind(kind)
+                .setMarkerType(kind)
                 .setMarkerPlace()
                 .setIdentificationNumber()
                 .setFirstMarkerDate()
@@ -57,24 +59,25 @@ public class AnimalFactory {
                 .setKeepPlace()
                 .setProductDirection()
                 .build();
-        return bees;
     }
 
-    public Animal createGroupOfPig() throws SQLException {
-        Animal groupOfPig = new Animal.AnimalBuilder()
-                .setAnimalKind("Свиньи")
-                .setMarkerType()
+    public AnimalGroup createGroupOfPig() throws SQLException {
+        String kind = "Свиньи";
+        return new AnimalGroup.AnimalGroupBuilder()
+                .setAnimalKind(kind)
+                .setMarkerType(kind)
                 .setMarkerPlace()
                 .setIdentificationNumber()
                 .setFirstMarkerDate()
                 .setRegistrationGround()
-                .setBirthDate()
+                .setBirthDateRange()
                 .setGender()
-                .setNickName()
+                .setCount()
+                .setCountOfMale()
+                .setCountOfFemale()
                 .setKeepType()
                 .setKeepPlace()
                 .setProductDirection()
                 .build();
-        return groupOfPig;
     }
 }

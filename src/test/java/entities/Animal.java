@@ -8,7 +8,6 @@ import lombok.Getter;
 import java.sql.SQLException;
 
 public class Animal {
-    private String id;
     private String kind;
     private String identificationNumber;
     private String markerType;
@@ -23,78 +22,71 @@ public class Animal {
     private String keepPlace;
     private String productDirection;
     private String registrationDate;
-    private boolean isGroup;
     private String enterprise;
 
-    public String getId() {
-        return this.id;
-    }
-
     public String getKind() {
-        return  this.kind;
+        return this.kind;
     }
 
     public String getIdentificationNumber() {
-        return  this.identificationNumber;
+        return this.identificationNumber;
     }
 
     public String getMarkerType() {
-        return  this.markerType;
+        return this.markerType;
     }
 
     public String getMarkerPlace() {
-        return  this.markerPlace;
+        return this.markerPlace;
     }
 
     public String getFirstMarkerDate() {
-        return  this.firstMarkerDate;
+        return this.firstMarkerDate;
     }
 
     public String getRegistrationGround() {
-        return  this.registrationGround;
+        return this.registrationGround;
     }
 
     public String getSuit() {
-        return  this.suit;
+        return this.suit;
     }
 
     public String getBirthDate() {
-        return  this.birthDate;
+        return this.birthDate;
     }
 
     public String getGender() {
-        return  this.gender;
+        return this.gender;
     }
 
     public String getNickName() {
-        return  this.nickName;
+        return this.nickName;
     }
 
     public String getKeepType() {
-        return  this.keepType;
+        return this.keepType;
     }
 
     public String getKeepPlace() {
-        return  this.keepPlace;
+        return this.keepPlace;
     }
 
     public String getProductDirection() {
-        return  this.productDirection;
+        return this.productDirection;
     }
 
     public String getRegistrationDate() {
-        return  this.registrationDate;
+        return this.registrationDate;
     }
 
-    public boolean isGroup() {
-        return  this.isGroup;
-    }
 
     public String getEnterprise() {
-        return  this.enterprise;
+        return this.enterprise;
     }
 
-    private Animal() {}
+    private Animal() {
+    }
 
     public static class AnimalBuilder {
         private Animal animal;
@@ -109,60 +101,82 @@ public class Animal {
             return this;
         }
 
-        public AnimalBuilder setMarkerType() {
-            animal.markerType = ("Чип");
+        public AnimalBuilder setMarkerType(String kind) {
+            if (kind.matches("Пчёлы")) {
+                animal.markerType = ("Табло");
+            } else {
+                animal.markerType = ("Чип");
+            }
             return this;
         }
 
         public AnimalBuilder setIdentificationNumber() {
-            animal.identificationNumber = DataGenerator.getNumber(15);
+            if (animal.markerType.matches("Чип")) {
+                animal.identificationNumber = DataGenerator.getNumber(15);
+            }
+            if (animal.markerType.matches("Табло")) {
+                animal.identificationNumber = DataGenerator.getNumberWithFirst("2", 8);
+            } else {
+                animal.identificationNumber = DataGenerator.getNumber(15);
+            }
             return this;
         }
-        public AnimalBuilder setMarkerPlace(){
-            animal.markerPlace = handbooks.getRandomMarkerPlace(animal.kind);
+
+        public AnimalBuilder setMarkerPlace() {
+            animal.markerPlace = handbooks.getRandomMarkerPlace(animal.kind, animal.markerType);
             return this;
         }
-        public AnimalBuilder setFirstMarkerDate(){
+
+        public AnimalBuilder setFirstMarkerDate() {
             animal.firstMarkerDate = DataGenerator.getLocalDate();
             return this;
         }
+
         public AnimalBuilder setRegistrationGround() throws SQLException {
             animal.registrationGround = handbooks.getRandomRegistrationGround();
             return this;
         }
-        public AnimalBuilder setSuit(){
+
+        public AnimalBuilder setSuit() {
             animal.suit = handbooks.getRandomSuit(animal.kind);
             return this;
         }
+
         public AnimalBuilder setBirthDate() throws SQLException {
-            if (animal.registrationGround.matches("Рождение животного")){
+            if (animal.registrationGround.matches("Рождение животного")) {
                 animal.birthDate = DataGenerator.getPastDateForBirthGround();
             } else {
                 animal.birthDate = DataGenerator.getPastDate();
             }
             return this;
         }
-        public AnimalBuilder setGender(){
+
+        public AnimalBuilder setGender() {
             animal.gender = handbooks.getRandomGender();
             return this;
         }
-        public AnimalBuilder setNickName(){
+
+        public AnimalBuilder setNickName() {
             animal.nickName = DataGenerator.getNickname();
             return this;
         }
+
         public AnimalBuilder setKeepType() throws SQLException {
             animal.keepType = handbooks.getRandomKeepType(animal.kind);
             return this;
         }
+
         public AnimalBuilder setKeepPlace() throws SQLException {
             animal.keepPlace = handbooks.getRandomKeepPlace(animal.kind);
             return this;
         }
+
         public AnimalBuilder setProductDirection() throws SQLException {
             animal.productDirection = handbooks.getRandomProductDirection(animal.kind);
             return this;
         }
-        public Animal build(){
+
+        public Animal build() {
             return animal;
         }
     }

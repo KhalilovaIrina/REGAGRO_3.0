@@ -2,6 +2,7 @@ package Pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import entities.Enterprise;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -27,16 +28,19 @@ public class AddEnterprisePage {
     private SelenideElement citySelection = $x("//*[@id='addEnterpriseForm']/div[6]/div[2]/div/span/span[1]/span");
     private SelenideElement streetSelection = $x("//*[@id='addEnterpriseForm']/div[8]/div[2]/div/span/span[1]/span");
     private SelenideElement houseNumberSelection = $x("//*[@id='addEnterpriseForm']/div[9]/div[2]/div/input");
-    private SelenideElement serviceAreaSelection = $x("//*[@id='addEnterpriseForm']/div[12]/div[2]/div/span/span[1]/span");
-    private SelenideElement activateRegistrationButton = $x("//button[contains(text(),'Завершить регистрацию')]");
+  //  private SelenideElement serviceAreaSelection = $("#service_area_id");
+    private SelenideElement serviceAreaSelection = $x("//*[@id='addEnterpriseForm']/div[13]/div[2]/div/span");
+    private SelenideElement activateRegistrationButton = $("#submitFormsBtn");
     private SelenideElement innOwnersCard = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/div[5]/div[1]/div[2]/div[2]/div[2]");
 
     public AddEnterprisePage() {
         heading.isDisplayed();
     }
+
     public String getOwnersInn() {
         return innOwnersCard.getText();
     }
+
     public void getNewOwnerLegalEntity(String inn) {
         chooseOwnerButton.click();
         innField.setValue("1");
@@ -75,27 +79,25 @@ public class AddEnterprisePage {
     }
 
     public EnterpriseCardPage getNewEnterprise
-            (String nameOfEnterprise, String district, String city, String street, String houseNumber, String serviceArea) {
+            (Enterprise enterprise) {
         chooseOwnerButton.click();
         OwnerModalWindow ownerModalWindow = new OwnerModalWindow();
-        ownerModalWindow.getOwner();
-        nameOfEnterpriseField.setValue(nameOfEnterprise);
+        ownerModalWindow.getOwner(enterprise);
+        nameOfEnterpriseField.setValue(enterprise.getName());
         typeOfEnterprise.click();
-        input.setValue("Птицеферма").pressEnter();
+        input.setValue(enterprise.getTypeOfEnterprise()).pressEnter();
         districtSelection.click();
-        input.setValue(district).pressEnter();
+        input.setValue(enterprise.getDistrict()).pressEnter();
         citySelection.click();
-        input.setValue(city).pressEnter();
+        input.setValue(enterprise.getCity()).pressEnter();
+        Selenide.sleep(1000);
         streetSelection.click();
-        input.setValue(street).pressEnter();
-        houseNumberSelection.click();
-        houseNumberSelection.setValue(houseNumber).pressEnter();
-      //  Selenide.executeJavaScript("window.scrollTo(0, document.body.scrollHeight)");
+        input.setValue(enterprise.getStreet()).pressEnter();
         serviceAreaSelection.click();
-        input.setValue(serviceArea).pressEnter();
+        input.setValue(enterprise.getServiceArea()).pressEnter();
         activateRegistrationButton.click();
 
-        Selenide.sleep(2000);
+        Selenide.sleep(2500);
 
         return new EnterpriseCardPage();
     }

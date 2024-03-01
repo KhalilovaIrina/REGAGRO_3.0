@@ -15,21 +15,23 @@ public class DataGenerator {
 
 
     public static String getNickname() {
-        String name = faker.name().firstName();
-        return name;
+        return  faker.name().firstName();
     }
 
     public static String getFullName() {
-        String fullName = faker.name().fullName();
-        return fullName;
+        return faker.name().fullName();
     }
 
     public static String getNumber(int length) {
         return faker.number().digits(length);
     }
 
-    public static String getNumber(int from, int before){
-         return String.valueOf(range(from, before));
+    public static String getNumberWithFirst(String firstNumber, int length) {
+        return firstNumber + faker.number().digits(length);
+    }
+
+    public static String getNumber(int from, int before) {
+        return String.valueOf(range(from, before));
     }
 
     public static String getLocalDate() {
@@ -45,6 +47,7 @@ public class DataGenerator {
         String year = LocalDate.now().minusYears(range(1, 3)).format(DateTimeFormatter.ofPattern("yyyy"));
         return (day + month + year);
     }
+
     public static String getPastDateForBirthGround() {
         String day = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
         String month = LocalDate.now().minusMonths(range(0, 6)).format(DateTimeFormatter.ofPattern("MM"));
@@ -56,7 +59,7 @@ public class DataGenerator {
         List<String> dateRange = new ArrayList<>();
         int randomInt;
         int yearToSubtract;
-        if (ground.matches("Рождение")){
+        if (ground.matches("Рождение")) {
             randomInt = range(1, 5);
             yearToSubtract = 0;
         } else {
@@ -72,7 +75,6 @@ public class DataGenerator {
         return dateRange;
     }
 
-
     private static int range(int min, int max) {
         Random random = new Random();
         int range = min + random.nextInt(max - min + 1);
@@ -82,5 +84,9 @@ public class DataGenerator {
     public String getRandomValue(List<String> handbooks) {
         Random random = new Random();
         return handbooks.get(random.nextInt(handbooks.size()));
+    }
+
+    public static String getEnterpriseName(){
+        return faker.company().name();
     }
 }

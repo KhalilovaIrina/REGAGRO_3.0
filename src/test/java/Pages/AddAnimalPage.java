@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import dataGenerator.DataGenerator;
 import entities.Animal;
+import entities.AnimalGroup;
 import org.junit.jupiter.api.DisplayName;
 
 import java.sql.SQLException;
@@ -45,11 +46,12 @@ public class AddAnimalPage {
     private SelenideElement countOfFemale = $("#addAnimalForm > div:nth-child(1) > div:nth-child(14) > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input");
     private SelenideElement nickName = $("#addAnimalForm > div:nth-child(1) > div:nth-child(16) > div > div:nth-child(2) > div > input");
     private SelenideElement keepTypes = $("#addAnimalForm > div:nth-child(1) > div:nth-child(18) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
+    private SelenideElement keepTypesBees = $("#addAnimalForm > div:nth-child(1) > div:nth-child(15) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
     private SelenideElement keepPlaces = $("#addAnimalForm > div:nth-child(1) > div:nth-child(20) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
+    private SelenideElement keepPlacesBees = $("#addAnimalForm > div:nth-child(1) > div:nth-child(17) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
     private SelenideElement productDirections = $("#product_direction > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
     private SelenideElement activateButton = $x("//button/div[contains(text(),'Завершить')]");
     private SelenideElement markerTypes = $("#addAnimalForm > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div > div.row.mb-3 > div:nth-child(2) > div > div:nth-child(1) > div.col-5 > div > div > div > span > span.selection > span");
-
 
 
     private SelenideElement openPassport = $x("//button[contains(., 'Открыть паспорт')]");
@@ -159,11 +161,11 @@ public class AddAnimalPage {
         birthDateInput.setValue(bees.getBirthDate()).pressEnter();
 
         // Тип содержания
-        keepTypes.click();
+        keepTypesBees.click();
         input.setValue(bees.getKeepType()).pressEnter();
 
         // Место содержания
-        keepPlaces.click();
+        keepPlacesBees.click();
         input.setValue(bees.getKeepPlace()).pressEnter();
 
         // Направление продуктивности
@@ -238,7 +240,76 @@ public class AddAnimalPage {
         Selenide.sleep(2000);
     }
 
-    @DisplayName("Переход в паспорт животного после успешной регистрации")
+    // Регистрация группы животных
+    public void getActivateRegistrationGroup(AnimalGroup pigs) {
+
+        // Выбор объекта
+        findObjectButton.click();
+        innCheckbox.shouldBe(visible, Duration.ofSeconds(2));
+        innCheckbox.click();
+        innField.setValue("0278039949");
+        findButtonModalWindow.click();
+        description.click();
+        chooseButton.click();
+
+        // Вид животного
+        animalKind.click();
+        input.setValue(pigs.getKind()).pressEnter();
+
+        // Идентификация
+        markerTypes.click();
+        input.setValue(pigs.getMarkerType()).pressEnter();
+        identificationNumberField.click();
+        identificationNumberField.setValue(pigs.getIdentificationNumber()).pressEnter();
+        markerPlacesSelection.click();
+        input.setValue(pigs.getMarkerPlace()).pressEnter();
+
+        // Дата первичного маркирования
+        firstMarkerDate.click();
+        firstMarkerDateInput.setValue(pigs.getFirstMarkerDate()).pressEnter();
+
+        // Основание
+        foundation.click();
+        input.setValue(pigs.getRegistrationGround()).pressEnter();
+
+        // Диапазон дат рождения
+        birthDateFrom.click();
+        birthDateInput.setValue(pigs.getBirthDateFrom()).pressEnter();
+
+        birthDateBefore.click();
+        birthDateInput.setValue(pigs.getBirthDateBefore()).pressEnter();
+
+        //Пол
+        if (pigs.getGender().matches("Самка")) {
+            genderFemale.click();
+        }
+        if (pigs.getGender().matches("Смешанный")) {
+            genderMixed.click();
+        } else genderMale.click();
+
+        // Количество
+        count.setValue(pigs.getCount());
+        countOfMale.setValue(pigs.getCountOfMale());
+        countOfFemale.setValue(pigs.getCountOfFemale());
+
+        // Тип содержания
+        keepTypes.click();
+        input.setValue(pigs.getKeepType()).pressEnter();
+
+        // Место содержания
+        keepPlaces.click();
+        input.setValue(pigs.getKeepPlace()).pressEnter();
+
+        // Направление продуктивности
+        productDirections.click();
+        input.setValue(pigs.getProductDirection()).pressEnter();
+
+        // Активация
+        activateButton.click();
+        Selenide.sleep(2000);
+    }
+
+    //Переход в паспорт животного после успешной регистрации
 
     public AnimalPassportPage getAnimalPassportPage() {
 
@@ -249,13 +320,13 @@ public class AddAnimalPage {
     }
 
 
-    @DisplayName("Уведомление об успешной регистрации")
+    //Уведомление об успешной регистрации"
     public boolean getMessageSuccessRegistration() {
         Selenide.sleep(2500);
         return $x("//button[contains(., 'Добавить еще')]").isDisplayed();
     }
 
-//    @DisplayName("Регистрация 'Добавить еще'")
+//Регистрация 'Добавить еще'
 //    public void nextRegistration() {
 //
 //        Selenide.sleep(2000);

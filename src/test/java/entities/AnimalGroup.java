@@ -6,7 +6,6 @@ import handbooks.AnimalHandbooks;
 import java.sql.SQLException;
 
 public class AnimalGroup {
-    private String id;
     private String kind;
     private String identificationNumber;
     private String markerType;
@@ -23,14 +22,9 @@ public class AnimalGroup {
     private String keepPlace;
     private String productDirection;
     private String registrationDate;
-    private boolean isGroup;
     private String enterprise;
 
     private AnimalGroup() {
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getKind() {
@@ -97,10 +91,6 @@ public class AnimalGroup {
         return registrationDate;
     }
 
-    public boolean isGroup() {
-        return isGroup;
-    }
-
     public String getEnterprise() {
         return enterprise;
     }
@@ -118,18 +108,29 @@ public class AnimalGroup {
             return this;
         }
 
-        public AnimalGroup.AnimalGroupBuilder setMarkerType() {
-            animalGroup.markerType = ("Чип");
+        public AnimalGroup.AnimalGroupBuilder setMarkerType(String kind) {
+            if (kind.matches("Пчёлы")) {
+                animalGroup.markerType = ("Табло");
+            } else {
+                animalGroup.markerType = ("Чип");
+            }
             return this;
         }
 
         public AnimalGroup.AnimalGroupBuilder setIdentificationNumber() {
-            animalGroup.identificationNumber = DataGenerator.getNumber(15);
+            if (animalGroup.markerType.matches("Чип")) {
+                animalGroup.identificationNumber = DataGenerator.getNumber(15);
+            }
+            if (animalGroup.markerType.matches("Табло")) {
+                animalGroup.identificationNumber = DataGenerator.getNumberWithFirst("2", 8);
+            } else {
+                animalGroup.identificationNumber = DataGenerator.getNumber(15);
+            }
             return this;
         }
 
         public AnimalGroup.AnimalGroupBuilder setMarkerPlace() {
-            animalGroup.markerPlace = handbooks.getRandomMarkerPlace(animalGroup.kind);
+            animalGroup.markerPlace = handbooks.getRandomMarkerPlace(animalGroup.kind, animalGroup.markerType);
             return this;
         }
 

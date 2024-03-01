@@ -11,6 +11,7 @@ import Pages.HomePage;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import entities.Animal;
+import entities.AnimalGroup;
 import helpers.AnimalFactory;
 import helpers.DBHelper;
 import dataGenerator.DataGenerator;
@@ -30,11 +31,11 @@ import static com.codeborne.selenide.Selenide.open;
 public class RegressTests {
     @BeforeAll
     static void setUpAll() {
-        Configuration.headless = true;
+       // Configuration.headless = true;
         SelenideLogger.addListener("allure", new AllureSelenide());
         open("https://v3.dev.regagro.ru/");
         AuthPage.autoVet();
-        //Configuration.holdBrowserOpen = true;
+        Configuration.holdBrowserOpen = true;
     }
 
     @AfterAll
@@ -146,6 +147,28 @@ public class RegressTests {
         Assertions.assertTrue(dbHelper.isAnimalInDatabase(chicken.getIdentificationNumber()),
                 "Животное отсутствует в базе данных");
     }
+    // Регистрация животного
+    @DisplayName("RAT-1948 Регистрация группы животных (свиньи)")
+    @Test
+    void regAnimalGroup() throws SQLException {
+        AnimalFactory factory = new AnimalFactory();
+        AnimalGroup pigs = factory.createGroupOfPig();
+
+        BasePage basePage = new BasePage();
+        basePage.getAddAnimalPage();
+
+        AddAnimalPage registrationAnimalPage = new AddAnimalPage();
+        registrationAnimalPage.getActivateRegistrationGroup(pigs);
+        Assertions.assertTrue(registrationAnimalPage.getMessageSuccessRegistration());
+
+        registrationAnimalPage.getAnimalPassportPage();
+        AnimalPassportPage animalPassportPage = new AnimalPassportPage();
+        Assertions.assertEquals(pigs.getIdentificationNumber(), animalPassportPage.getIdentificationNumber(),
+                "Идентификационный номер, указанный при регистрации, не совпадает с номером в паспорте животного");
+
+        Assertions.assertTrue(dbHelper.isAnimalInDatabase(pigs.getIdentificationNumber()),
+                "Животное отсутствует в базе данных");
+    }
 
 //    @DisplayName("RAT-2669 Регистрация объекта," +
 //            "RAT-2712 Редактирование объекта," +
@@ -161,8 +184,6 @@ public class RegressTests {
 //        Assertions.assertTrue(enterpriseCardPage.getNameValue().contains(nameOfEnterprise));
 //
 //        Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(nameOfEnterprise));
-//
-
 //}
 //    @DisplayName("Регистрация неверифицированного владельца")
 //    @Test
