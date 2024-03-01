@@ -15,8 +15,4 @@ public class EnterpriseHandbooks {
         int randomEnterpriseTypeId = enterpriseTypeIds.get(random.nextInt(enterpriseTypeIds.size()));
         return dbHelper.getValuesOfConditions("name", "id", "enterprise_types", randomEnterpriseTypeId).get(0);
     }
-
-    public String getRandomAddress(){
-        return null;
-    };
 }

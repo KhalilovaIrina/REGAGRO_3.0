@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.sql.SQLException;
 
+@Getter
 public class Animal {
     private String kind;
     private String identificationNumber;
@@ -24,66 +25,66 @@ public class Animal {
     private String registrationDate;
     private String enterprise;
 
-    public String getKind() {
-        return this.kind;
-    }
-
-    public String getIdentificationNumber() {
-        return this.identificationNumber;
-    }
-
-    public String getMarkerType() {
-        return this.markerType;
-    }
-
-    public String getMarkerPlace() {
-        return this.markerPlace;
-    }
-
-    public String getFirstMarkerDate() {
-        return this.firstMarkerDate;
-    }
-
-    public String getRegistrationGround() {
-        return this.registrationGround;
-    }
-
-    public String getSuit() {
-        return this.suit;
-    }
-
-    public String getBirthDate() {
-        return this.birthDate;
-    }
-
-    public String getGender() {
-        return this.gender;
-    }
-
-    public String getNickName() {
-        return this.nickName;
-    }
-
-    public String getKeepType() {
-        return this.keepType;
-    }
-
-    public String getKeepPlace() {
-        return this.keepPlace;
-    }
-
-    public String getProductDirection() {
-        return this.productDirection;
-    }
-
-    public String getRegistrationDate() {
-        return this.registrationDate;
-    }
-
-
-    public String getEnterprise() {
-        return this.enterprise;
-    }
+//    public String getKind() {
+//        return this.kind;
+//    }
+//
+//    public String getIdentificationNumber() {
+//        return this.identificationNumber;
+//    }
+//
+//    public String getMarkerType() {
+//        return this.markerType;
+//    }
+//
+//    public String getMarkerPlace() {
+//        return this.markerPlace;
+//    }
+//
+//    public String getFirstMarkerDate() {
+//        return this.firstMarkerDate;
+//    }
+//
+//    public String getRegistrationGround() {
+//        return this.registrationGround;
+//    }
+//
+//    public String getSuit() {
+//        return this.suit;
+//    }
+//
+//    public String getBirthDate() {
+//        return this.birthDate;
+//    }
+//
+//    public String getGender() {
+//        return this.gender;
+//    }
+//
+//    public String getNickName() {
+//        return this.nickName;
+//    }
+//
+//    public String getKeepType() {
+//        return this.keepType;
+//    }
+//
+//    public String getKeepPlace() {
+//        return this.keepPlace;
+//    }
+//
+//    public String getProductDirection() {
+//        return this.productDirection;
+//    }
+//
+//    public String getRegistrationDate() {
+//        return this.registrationDate;
+//    }
+//
+//
+//    public String getEnterprise() {
+//        return this.enterprise;
+//    }
 
     private Animal() {
     }

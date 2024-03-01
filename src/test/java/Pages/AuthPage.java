@@ -1,6 +1,7 @@
 package Pages;
 
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 import java.time.Duration;
@@ -16,9 +17,7 @@ public class AuthPage {
     private static SelenideElement authButton = $x("//button[contains(text(),'Авторизация')]");
 
     public AuthPage(){
-
-        email.isDisplayed();
-        password.isDisplayed();
+       Assertions.assertTrue(isOnAuthPage());
     }
     public boolean isOnAuthPage() {
         email.isDisplayed();
@@ -28,7 +27,7 @@ public class AuthPage {
     @DisplayName("Авторизация")
     public static HomePage autoVet() {
         email.shouldBe(visible, Duration.ofSeconds(15));
-        email.setValue("tur@tur.tur");
+        email.setValue("cheh@p.v");
         password.setValue("33221100");
         authButton.click();
         return new HomePage();
