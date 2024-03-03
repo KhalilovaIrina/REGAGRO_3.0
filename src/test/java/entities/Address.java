@@ -1,67 +1,53 @@
 package entities;
 
 import helpers.RequestSpecificationCreator;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Address {
+        public int id;
+        public int object_id;
+        public String object_guid;
+        public int change_id;
+        public String name;
+        public String type_name;
+        public int level;
+        public int oper_type_id;
+        public int prev_id;
+        public int next_id;
+        public String update_date;
+        public String start_date;
+        public String end_date;
+        public int is_actual;
+        public int is_active;
 
-    private Integer id;
-    private Integer object_id;
-    private String object_guid;
-    private Integer change_id;
-    private String name;
-    private String type_name;
-    private Integer level;
-    private Integer oper_type_id;
-    private Integer prev_id;
-    private Integer next_id;
-    private String update_date;
-    private String start_date;
-    private String end_date;
-    private Integer is_actual;
-    private Integer is_active;
-
-    public Address setObjectGuid(String baseUri, String path){
-        object_guid = getUuid(baseUri, path);
-        return this;
-    }
-
-    Random random = new Random();
-
-    private String getUuid(String baseUri, String path){
-        RequestSpecificationCreator.getReqSpec(baseUri);
-        List<Address> addresses = given()
+    public List<Address> getAddresses(String baseUri, String path, String level) {
+        RequestSpecification reqSpec =  RequestSpecificationCreator.getReqSpec(baseUri);
+        Response response = given()
+                .spec(reqSpec)
                 .when()
-                .get(path)
-                .then()
-                .extract().body().jsonPath().getList("object_guid", Address.class);
+                .get(path+level);
+        String jsonResponse = response.asString(); // Преобразование ответа в строку
 
-        List<String> uuids = addresses.stream().map(dis -> dis.getObject_guid()).collect(Collectors.toList());
-        return uuids.get(random.nextInt(uuids.size()));
+        System.out.println("JSON Response:");
+        System.out.println(jsonResponse); // Печать JSON ответа
+
+
+        List<Address> addresses = response.jsonPath().getList(".", Address.class);
+
+        return addresses;
     }
-
-    public String getAddress(String baseUri, String path){
-        List<Address> addresses = given()
-                .when()
-                .get(path)
-                .then()
-                .extract().body().jsonPath().getList("name", Address.class);
-
-        List<String> values = addresses.stream().map(val -> val.getName()).collect(Collectors.toList());
-        return values.get(random.nextInt(values.size()));
-    }
-
-
 }
 

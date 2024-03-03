@@ -4,126 +4,53 @@ import dataGenerator.DataGenerator;
 import handbooks.EnterpriseHandbooks;
 import lombok.Getter;
 
+import java.util.List;
+import java.util.Random;
+
 @Getter
 public class Enterprise {
-    private String ownerInn;
-    private String name;
-    private String typeOfEnterprise;
-    private String region;
-    private String district;
-    private String city;
-    private String planningStructure;
-    private String street;
-    private String house;
-    private String serviceArea;
-    private String countOfAnimals;
+    EnterpriseHandbooks enterpriseHandbooks = new EnterpriseHandbooks();
+    private final Address address = new Address();
+    Random random = new Random();
+    private String uuid = "5e465691-de23-4c4e-9f46-f35a125b5970";
 
-    //    public String getOwnerInn() {
-//        return ownerInn;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getTypeOfEnterprise() {
-//        return typeOfEnterprise;
-//    }
-//
-//    public String getRegion() {
-//        return region;
-//    }
-//
-//    public String getDistrict() {
-//        return district;
-//    }
-//
-//    public String getCity() {
-//        return city;
-//    }
-//
-//    public String getPlanningStructure() {
-//        return planningStructure;
-//    }
-//
-//    public String getStreet() {
-//        return street;
-//    }
-//
-//    public String getHouse() {
-//        return house;
-//    }
-//
-//    public String getServiceArea() {
-//        return serviceArea;
-//    }
-//
-//    public String getCountOfAnimals() {
-//        return countOfAnimals;
-//    }
-    private Enterprise() {
-    }
+    private final String baseUri = "v3.dev.regagro.ru";
+    private final String pathAddress = "/ajax/address/object/";
+    private final String path = pathAddress + uuid + "/children?levels=";
 
+    private final String ownerInn = "7736280231";
+    private final String name = DataGenerator.getEnterpriseName();
+    private final String typeOfEnterprise = enterpriseHandbooks.getRandomEnterpriseType();
     ;
+    private final String region = "Орловская";
+    private final String district = setDistrict();
+    private final String city = setCity();
+    //private String planningStructure;
+    private final String street = setStreet();
+    private final String house = DataGenerator.getNumber(20);
+    private final String serviceArea = "2";
+    //private String countOfAnimals;
 
-    public static class EnterpriseBuilder {
-        private Enterprise enterprise;
-        EnterpriseHandbooks enterpriseHandbooks = new EnterpriseHandbooks();
-        private Address address = new Address();
-
-        private String baseUri = "v3.dev.regagro.ru";
-        private String pathAddress = "/ajax/address/object/";
-        private String pathDistrict = pathAddress + address.getObject_guid() + "/children?levels=district";
-        private String pathCity = pathAddress + address.getObject_guid() + "/children?levels=city,locality";
-        private String pathStreet = pathAddress + address.getObject_guid() + "/children?levels=street";
-
-
-        public EnterpriseBuilder setOwnerInn() {
-            enterprise.ownerInn = "7736280231";
-            return this;
-        }
-
-        public EnterpriseBuilder setName() {
-            enterprise.name = DataGenerator.getEnterpriseName();
-            return this;
-        }
-
-        public EnterpriseBuilder setTypeOfEnterprise() {
-            enterprise.typeOfEnterprise = enterpriseHandbooks.getRandomEnterpriseType();
-            return this;
-        }
-
-        public EnterpriseBuilder setDistrict() {
-            enterprise.district = address.getAddress(baseUri, pathDistrict);
-            address.setObjectGuid(baseUri,pathDistrict);
-            return this;
-        }
-
-        public EnterpriseBuilder setCity() {
-            enterprise.city = address.getAddress(baseUri, pathCity);
-            address.setObjectGuid(baseUri, pathCity);
-            return this;
-        }
-
-        public EnterpriseBuilder setStreet() {
-            enterprise.street = address.getAddress(baseUri,pathStreet);
-            address.setObjectGuid(baseUri,pathStreet);
-            return this;
-        }
-
-        public EnterpriseBuilder setHouse() {
-            enterprise.house = DataGenerator.getNumber(20);
-            return this;
-        }
-
-        public EnterpriseBuilder setServiceArea() {
-            enterprise.serviceArea = "2";
-            return this;
-        }
-
-        public Enterprise build() {
-            return enterprise;
-        }
+    public Address getRandomAddress(String level) {
+        List<Address> addresses = address.getAddresses(baseUri, path, level);
+        return addresses.get(random.nextInt(addresses.size()));
     }
 
+    private String setDistrict() {
+        String districtName = getRandomAddress("district").getName();
+        uuid = getRandomAddress("district").getObject_guid();
+        return districtName;
+    }
+
+    private String setCity() {
+        String cityName = getRandomAddress("city,locality").getName();
+        uuid = getRandomAddress("city,locality").getObject_guid();
+        return cityName;
+    }
+
+    private String setStreet() {
+        String streetName = getRandomAddress("street").getName();
+        uuid = getRandomAddress("street").getObject_guid();
+        return streetName;
+    }
 }

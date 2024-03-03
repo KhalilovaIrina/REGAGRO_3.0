@@ -12,6 +12,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import entities.Animal;
 import entities.AnimalGroup;
+import entities.Enterprise;
 import helpers.AnimalFactory;
 import helpers.DBHelper;
 import dataGenerator.DataGenerator;
@@ -170,21 +171,21 @@ public class RegressTests {
                 "Животное отсутствует в базе данных");
     }
 
-//    @DisplayName("RAT-2669 Регистрация объекта," +
-//            "RAT-2712 Редактирование объекта," +
-//            "RAT-3290 Удаление объекта без животных ")
-//    @Test
-//    void regEnterprise(){
-//        BasePage basePage = new BasePage();
-//        basePage.getAddEnterprisePage();
-//        AddEnterprisePage addEnterprisePage = new AddEnterprisePage();
-//        String nameOfEnterprise = "Отомэйшн";
-//        addEnterprisePage.getNewEnterprise(nameOfEnterprise, "Орловский", "Агеевка", "Богатая", "2", "2");
-//        EnterpriseCardPage enterpriseCardPage = new EnterpriseCardPage();
-//        Assertions.assertTrue(enterpriseCardPage.getNameValue().contains(nameOfEnterprise));
-//
-//        Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(nameOfEnterprise));
-//}
+    @DisplayName("RAT-2669 Регистрация объекта," +
+            "RAT-2712 Редактирование объекта," +
+            "RAT-3290 Удаление объекта без животных ")
+    @Test
+    void regEnterprise(){
+        BasePage basePage = new BasePage();
+        basePage.getAddEnterprisePage();
+        AddEnterprisePage addEnterprisePage = new AddEnterprisePage();
+        Enterprise enterprise = new Enterprise();
+        addEnterprisePage.getNewEnterprise(enterprise);
+        EnterpriseCardPage enterpriseCardPage = new EnterpriseCardPage();
+        Assertions.assertTrue(enterpriseCardPage.getNameValue().contains(enterprise.getName()));
+
+        Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(enterprise.getName()));
+}
 //    @DisplayName("Регистрация неверифицированного владельца")
 //    @Test
 //    void addNewOwner() {

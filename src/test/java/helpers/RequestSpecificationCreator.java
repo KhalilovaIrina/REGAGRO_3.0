@@ -7,23 +7,30 @@ import io.restassured.specification.RequestSpecification;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestSpecificationCreator {
-    public static String uuid;
+import static io.restassured.RestAssured.basic;
 
-    private static Map<String, String> getAuthScript() {
+public class RequestSpecificationCreator {
+    public static Map<String, String> authScript = initializeAuthScript();
+
+    private static Map<String, String> initializeAuthScript() {
         Map<String, String> authScript = new HashMap<>();
-        authScript.put("Cookie", "laravel_session=eyJpdiI6ImNUa0NkcWtsV0ttczU3TU15UThrakE9PSIsInZhbHVlIjoiM2JJaU9hK1RzbkhYVk01STBxREU1K3MxWnVFU0M1b3JMZXV2dmFXQVlmWkZsV0QweTJvSmhXeC9BajF5eFdBWHp3dGxYS2lTeGVzZjFwYVJqeDFvMnc2M3Jwa0VFbzRzNk5ZQ2VTblBVczhmQUFyWFJVcE5jMllJZCtNbVVPNlUiLCJtYWMiOiI5MjNkZmYwM2QzMmJlNmNjM2Y4Y2M3MDNlNzc0Nzc1NGJhOTUzODFmNTE3ZTc2MGE4ZTE1NmFjZmEwMTAzOTZjIiwidGFnIjoiIn0%3D");
-        authScript.put("X-XSRF-TOKEN", "eyJpdiI6ImJOUDcxY2VMNG4valNtamRrbnkxMmc9PSIsInZhbHVlIjoiOGE1eExMdFp0NEs1K2tTdlNVYmJWZW9oRXlzTHRob2plcVNXbWU4a0xPMjVwWmVtZENjYmZabDJ4UlNSdFV1aHgxWE1Ya3M2bUoycG4vcmVYanc3a1RZbmVuL2hOT3FxdDluVmRseHlLeGhUek5hb0l1UFduSDVsbDQ4ZEdpaWsiLCJtYWMiOiIyYTljN2ZlOGI2MWM4ZjUyNThjYjI0ZTNmYmU0ZDRiMGE3MzQxNTBkOGY0YTFlMzhiZjJlYWVmYWU3N2JiNWNhIiwidGFnIjoiIn0%3D");
+        authScript.put("Cookie", "laravel_session=eyJpdiI6ImY2STJGcW5RQXYxbFFhQTdnNHNralE9PSIsInZhbHVlIjoiY3BpWXFNdTJCQVFkZmd" +
+                "TbGc1a0U2d3I1Z1piSS9PMzBHNHE3Vms1UmVXMTROMHFrWkJqVkFiR0I0YlgwUmN4Rzd4bDBMTnBnU05hQjVzMUxndU5KWU9JN1QvSWFaZUc" +
+                "rZmQ0anRXR3lCZGhKQzVWT2RuR3Rab2xCa2pMb09ObFgiLCJtYWMiOiI4NzViY2NkMWY5YThiMTI4ODU3YzlhMTU0OTQ4ODQ4NTI2MDQxMjE" +
+                "wNGM1NDQ1M2E0ZGIwYzJiNmY3MjY0MTgwIiwidGFnIjoiIn0%3D");
+        authScript.put("X-XSRF-TOKEN", "eyJpdiI6IlNoVzEycytJWVF0dm1jbFNCQlB2cVE9PSIsInZhbHVlIjoiQVV5TE03Ukt5cFlJZUthTlZxeEVhS" +
+                "FVxL2JrNTNqSmNydHloUTlLSGRabzQ4SlVqOS93aUNpUEFqNkRkS3E4c1laVmUwa0Q3azUvdlhMMzlXUGpNNlpKaFNxTzltdHhWOXVueldYd" +
+                "EtuRzBuVmo1eGNZeFFrTCtBT0pqZFlWcEciLCJtYWMiOiI5MjY4ZGQzMDExZTg3MWU5NzJlMWQ5ZjI5YWMxNjRmNDA1MjVhZTI3ZjQ0YTdkM" +
+                "zliMzdkNDE3Zjg2YmFmZTMyIiwidGFnIjoiIn0%3D");
         return authScript;
     }
-
     public static RequestSpecification getReqSpec(String baseUri) {
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
-                .addHeader("Cookie", getAuthScript().get("Cookie"))
-                .addHeader("X-XSRF-TOKEN", getAuthScript().get("X-XSRF-TOKEN"))
+                .addHeader("Cookie", authScript.get("Cookie"))
+                .addHeader("X-XSRF-TOKEN", authScript.get("X-XSRF-TOKEN"))
+                .setAuth(basic("cheh@p.v", "33221100"))
                 .setContentType(ContentType.JSON)
                 .build();
     }
-
 }
