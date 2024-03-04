@@ -23,6 +23,7 @@ public class HomePage {
     private SelenideElement objectAccordionButtonShow = $x("//*[@id=home-page]/div/div[4]/div/div");
     private SelenideElement animalsAccordionButtonShow = $x("//*[@id=home-page]/div/div[5]/div/div");
 
+
     // Фильтры
     private SelenideElement filtersButton = $x("//*[@id=home-page]/div/div[1]/div[1]/button");
     private SelenideElement filtersModalShow = $x("/*[@id=home-page]/div/div[2]/div");

@@ -23,8 +23,8 @@ public class BasePage {
     private SelenideElement animalGroupRegistrationAccordionButton = $x("//div[contains(text(),'Группа животных')]");
 
     // Реестры
-    private SelenideElement registryAccordionButton = $x("//button[text()='Реестры']");
-    private SelenideElement enterprisesAccordionButton = $x("//button[text()='Объект']");
+    private SelenideElement registryAccordionButton = $x("//*[@id='flush-headingTwo']/button");
+    private SelenideElement enterprisesAccordionButton = $x("//a[@href='https://v3.dev.regagro.ru/enterprises']");
     private SelenideElement terminatedAnimalsAccordionButton = $x("//button[text()='Выбывшие животные']");
     private SelenideElement animalAccordionButton = $x("//button[text()='Животное']");
     private SelenideElement disposalListAccordionButton = $x("//button[text()='Выбытие']");
@@ -74,5 +74,14 @@ public class BasePage {
     public HomePage getHomePage() {
         mapAccordionButton.click();
         return new HomePage();
+    }
+
+    @DisplayName("Переход из сайдбара на страницу Реестр объектов")
+    public EnterpriseList getEnterpriseList(){
+        registryAccordionButton.click();
+
+        enterprisesAccordionButton.click();
+        Selenide.sleep(2000);
+        return new EnterpriseList();
     }
 }

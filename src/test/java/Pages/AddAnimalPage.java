@@ -22,36 +22,36 @@ public class AddAnimalPage {
     private SelenideElement findButtonModalWindow = $x("//button[contains(text(),'Найти')]");
     private SelenideElement description = $("div[class=item-descritpion]");
     private SelenideElement chooseButton = $x("//button[contains(text(),'Выбрать')]");
-    private SelenideElement animalKind = $(" #addAnimalForm > div:nth-child(1) > div:nth-child(3) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
+    private SelenideElement animalKind = $x("//div[contains(text(),'Вид животного')]/..//span[contains(@class,'select2-container--bootstrap-5')]");
     private SelenideElement pig = $("#select2--results > li:nth-child(3) > ul > li:nth-child(1)");
     private SelenideElement bees = $("#select2--results > li:nth-child(3) > ul > li:nth-child(3)");
     // private SelenideElement chicken = $("#select2--results > li:nth-child(5) > ul > li:nth-child(1)");
     private SelenideElement krs = $("#select2--results > li:nth-child(1) > ul > li:nth-child(1)");
-    private SelenideElement input = $("body > span > span > span.select2-search.select2-search--dropdown > input");
-    private SelenideElement identificationNumberField = $("#addAnimalForm > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div > div.row.mb-3 > div:nth-child(2) > div > div:nth-child(1) > div.col > input");
-    private SelenideElement markerPlacesSelection = $("#addAnimalForm > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div > div.row.mb-3 > div:nth-child(2) > div > div:nth-child(2) > div.col-5 > div > div > div > span > span.selection > span");
-    private SelenideElement firstMarkerDate = $("#addAnimalForm > div:nth-child(1) > div:nth-child(6) > div.col-6.mb-3.form-group.pb-3 > div > a > i");
-    private SelenideElement firstMarkerDateInput = $("#addAnimalForm > div:nth-child(1) > div:nth-child(6) > div.col-6.mb-3.form-group.pb-3 > div > input.form-control.flatpickr.input");
-    private SelenideElement foundation = $("#addAnimalForm > div:nth-child(1) > div:nth-child(8) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
-    private SelenideElement suit = $("#addAnimalForm > div:nth-child(1) > div:nth-child(11) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
-    private SelenideElement birthDate = $("#addAnimalForm > div:nth-child(1) > div:nth-child(12) > div > div.col-6.mb-3.form-group.pb-3 > div > input.form-control.flatpickr.input");
+    private SelenideElement input = $x("//input[@class='select2-search__field']");
+    private SelenideElement identificationNumberField = $x("//div/input[@placeholder='Введите номер']");
+    private SelenideElement markerPlacesSelection = $x("//select[@name='marker_place_id']/following-sibling::span[@dir='ltr']");
+    private SelenideElement firstMarkerDate = $x("//div[contains(text(), 'Дата первичного маркирования')]/following-sibling::div//i[@class='bi bi-calendar3']");
+    private SelenideElement firstMarkerDateInput = $x("//input[@class='form-control flatpickr input active']");
+    private SelenideElement foundation = $x("//div[contains(text(), 'Основание')]/following-sibling::div//span[@dir='ltr']");
+    private SelenideElement suit = $x("//div[contains(text(), 'Масть')]/following-sibling::div//span[@dir='ltr']");
+    private SelenideElement birthDate = $x("//div[contains(text(), 'Дата рождения')]/following-sibling::div//i[@class='bi bi-calendar3']");
     private SelenideElement birthDateFrom = $("#addAnimalForm > div:nth-child(1) > div:nth-child(11) > div > div:nth-child(2) > div > input.form-control.flatpickr.input");
     private SelenideElement birthDateBefore = $("#addAnimalForm > div:nth-child(1) > div:nth-child(11) > div > div:nth-child(3) > div > input.form-control.flatpickr.input");
-    private SelenideElement birthDateInput = $("#addAnimalForm > div:nth-child(1) > div:nth-child(12) > div > div.col-6.mb-3.form-group.pb-3 > div > input.form-control.flatpickr.input.active");
+    private SelenideElement birthDateInput = $x("//input[@class='form-control flatpickr input active']");
     private SelenideElement genderFemale = $("input[id=female]");
     private SelenideElement genderMale = $("input[id=male]");
     private SelenideElement genderMixed = $("input[id=mixed_gender]");
     private SelenideElement count = $("#addAnimalForm > div:nth-child(1) > div:nth-child(13) > div > div:nth-child(2) > div > input");
     private SelenideElement countOfMale = $("#addAnimalForm > div:nth-child(1) > div:nth-child(14) > div > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input");
     private SelenideElement countOfFemale = $("#addAnimalForm > div:nth-child(1) > div:nth-child(14) > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input");
-    private SelenideElement nickName = $("#addAnimalForm > div:nth-child(1) > div:nth-child(16) > div > div:nth-child(2) > div > input");
-    private SelenideElement keepTypes = $("#addAnimalForm > div:nth-child(1) > div:nth-child(18) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
+    private SelenideElement nickName = $x("//div[contains(text(), 'Кличка')]/following::input[@type='text']");
+    private SelenideElement keepTypes = $x("//div[contains(text(),'Способ содержания')]/following-sibling::div//span[@dir='ltr']");
     private SelenideElement keepTypesBees = $("#addAnimalForm > div:nth-child(1) > div:nth-child(15) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
-    private SelenideElement keepPlaces = $("#addAnimalForm > div:nth-child(1) > div:nth-child(20) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
+    private SelenideElement keepPlaces = $x("//div[contains(text(), 'Место содержания')]/following-sibling::div//span[@dir='ltr']");
     private SelenideElement keepPlacesBees = $("#addAnimalForm > div:nth-child(1) > div:nth-child(17) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
-    private SelenideElement productDirections = $("#product_direction > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
+    private SelenideElement productDirections = $x("//div[contains(text(), 'продуктивности')]/following-sibling::div//span[@dir='ltr']");
     private SelenideElement activateButton = $x("//button/div[contains(text(),'Завершить')]");
-    private SelenideElement markerTypes = $("#addAnimalForm > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div > div.row.mb-3 > div:nth-child(2) > div > div:nth-child(1) > div.col-5 > div > div > div > span > span.selection > span");
+    private SelenideElement markerTypes = $x("//select[@name='marker_type_id']/following-sibling::span//span[@aria-labelledby='select2--container']");
 
 
     private SelenideElement openPassport = $x("//button[contains(., 'Открыть паспорт')]");
@@ -199,6 +199,7 @@ public class AddAnimalPage {
         identificationNumberField.click();
         identificationNumberField.setValue(krs.getIdentificationNumber()).pressEnter();
         markerPlacesSelection.click();
+        Selenide.sleep(1500);
         input.setValue(krs.getMarkerPlace()).pressEnter();
 
         // Дата первичного маркирования
@@ -225,11 +226,14 @@ public class AddAnimalPage {
 
         // Тип содержания
         keepTypes.click();
+        Selenide.sleep(1500);
         input.setValue(krs.getKeepType()).pressEnter();
 
         // Место содержания
         keepPlaces.click();
-        input.setValue(krs.getKeepPlace()).pressEnter();
+        input.setValue(krs.getKeepPlace());
+        Selenide.sleep(1000);
+        input.pressEnter();
 
         // Направление продуктивности
         productDirections.click();

@@ -49,7 +49,7 @@ public class DBHelper {
     }
 
     @DisplayName("Получить список значений типа String одного столбца")
-    public List<String> getColumnData(String columnName, String table){
+    public List<String> getColumnData(String columnName, String table) {
         List<String> data = new ArrayList<>();
         Connection conn = getConnection(handbooks);
 
@@ -129,6 +129,7 @@ public class DBHelper {
         }
         return values;
     }
+
     @DisplayName("Получить список значений типа int одного столбца с 1 условием")
     public List<Integer> getIntValuesOfConditions(String columnNameSelect, String columnNameCondition, String table, int condition) {
         List<Integer> values = new ArrayList<>();
@@ -145,6 +146,7 @@ public class DBHelper {
         }
         return values;
     }
+
     @DisplayName("Получить список значений одного столбца с 2 условиями")
     public List<String> getValuesOfTwoConditions
             (String columnNameSelect, String columnNameFirstCondition, String columnNameSecondCondition,
@@ -228,6 +230,24 @@ public class DBHelper {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @DisplayName("Проверка успешного удаления объекта")
+    public boolean isDeleted(String name) {
+        Connection conn = getConnection(regagro_3_0);
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery
+                    ("SELECT deleted_at FROM enterprises WHERE name = '" + name + "'");
+
+            if (resultSet.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

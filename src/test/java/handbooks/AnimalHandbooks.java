@@ -51,7 +51,7 @@ public class AnimalHandbooks {
     public String getRandomRegistrationGround() {
         List<String> grounds = dbHelper.getColumnData("name", "registration_grounds");
         List<String> testGrounds = grounds.stream()
-                .filter(newGrounds -> !newGrounds.matches("РФ"))
+                .filter(newGrounds -> !newGrounds.matches("Ввоз в РФ"))
                 .collect(Collectors.toList());
         return testGrounds.get(random.nextInt(testGrounds.size()));
     }

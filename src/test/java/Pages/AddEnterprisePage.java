@@ -2,6 +2,7 @@ package Pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import dataGenerator.DataGenerator;
 import entities.Enterprise;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -20,19 +21,21 @@ public class AddEnterprisePage {
     private SelenideElement findItem = $x("//*[@id=search-results]/div/a/div[1]");
     private SelenideElement chooseButton = $x("//button[contains(text(),'Выбрать')]");
     private SelenideElement infoAboutEnterprise = $x("//button[contains(text(),'Информация об объекте')]");
-    private SelenideElement nameOfEnterpriseField = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/div[5]/div[5]/div/div/div/div/form/div[1]/div[2]/textarea");
+    private SelenideElement nameOfEnterpriseField = $x("//textarea[@name='name']");
     private SelenideElement typeOfEnterprise = $("#addEnterpriseForm > div:nth-child(2) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
     private SelenideElement typeresult = $("#select2--results > li:nth-child(5) > ul > li:nth-child(1)");
     private SelenideElement input = $x("/html/body/span/span/span[1]/input");
     private SelenideElement districtSelection = $x("//*[@id='addEnterpriseForm']/div[5]/div[2]/div/span/span[1]/span");
     private SelenideElement citySelection = $x("//*[@id='addEnterpriseForm']/div[6]/div[2]/div/span/span[1]/span");
-    private SelenideElement streetSelection = $x("//*[@id='addEnterpriseForm']/div[8]/div[2]/div/span/span[1]/span");
-    private SelenideElement houseNumberSelection = $x("//*[@id='addEnterpriseForm']/div[9]/div[2]/div/input");
-  //  private SelenideElement serviceAreaSelection = $("#service_area_id");
-    private SelenideElement serviceAreaSelection = $x("//*[@id='addEnterpriseForm']/div[13]/div[2]/div/span");
+    private SelenideElement streetSelection = $x("//*[@id='addEnterpriseForm']/div[7]/div[2]/div/span/span[1]/span");
+    private SelenideElement houseNumberDiv = $x("//div[contains(text(),'Дом')]/..//div[@class='col-6 mb-3 form-group pb-3']//input[@class='form-control']");
+    private SelenideElement houseNumber = $x("//div[contains(text(),'Дом')]/..//input");
+    //  private SelenideElement serviceAreaSelection = $("#service_area_id");
+    private SelenideElement serviceAreaSelection = $x("//*[@id='addEnterpriseForm']/div[12]/div[2]/div/span/span[1]/span");
+
     private SelenideElement activateRegistrationButton = $("#submitFormsBtn");
     private SelenideElement innOwnersCard = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/div[5]/div[1]/div[2]/div[2]/div[2]");
-
+    private SelenideElement saveButton = $x("//button[@id='submitFormsBtn']");
     public AddEnterprisePage() {
         heading.isDisplayed();
     }
@@ -91,8 +94,12 @@ public class AddEnterprisePage {
         citySelection.click();
         input.setValue(enterprise.getCity()).pressEnter();
         Selenide.sleep(1000);
-        streetSelection.click();
-        input.setValue(enterprise.getStreet()).pressEnter();
+        if (enterprise.getStreet() != null) {
+            streetSelection.click();
+            input.setValue(enterprise.getStreet()).pressEnter();
+        }
+        houseNumberDiv.setValue(enterprise.getHouse()).pressEnter();
+        //houseNumber.setValue(enterprise.getHouse()).pressEnter();
         serviceAreaSelection.click();
         input.setValue(enterprise.getServiceArea()).pressEnter();
         activateRegistrationButton.click();
@@ -103,4 +110,13 @@ public class AddEnterprisePage {
     }
 
 
+    public EnterpriseCardPage getEditEnterprise(String newNameOfEnterprise){
+        Selenide.sleep(5000);
+        nameOfEnterpriseField.clear();
+        nameOfEnterpriseField.setValue(newNameOfEnterprise);
+        Selenide.sleep(3000);
+        saveButton.click();
+        Selenide.sleep(3000);
+        return new EnterpriseCardPage();
+    }
 }

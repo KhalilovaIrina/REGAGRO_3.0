@@ -25,11 +25,19 @@ public class AuthPage {
         password.isDisplayed();
         return true;
     }
-    @DisplayName("Авторизация")
+    @DisplayName("Авторизация Ветеринарный врач")
     public static HomePage autoVet() {
         email.shouldBe(visible, Duration.ofSeconds(15));
-        email.setValue("tur@tur.tur");
+        email.setValue("cheh@p.v");
         password.setValue("33221100");
+        authButton.click();
+        return new HomePage();
+    }
+    @DisplayName("Авторизация суперадмин")
+    public static HomePage autoSuperAdmin() {
+        email.shouldBe(visible, Duration.ofSeconds(15));
+        email.setValue("admin@regagro.net");
+        password.setValue("44qsaTeF@p8I");
         authButton.click();
         return new HomePage();
     }
