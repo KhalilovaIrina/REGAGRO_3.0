@@ -36,16 +36,22 @@ public class AnimalHandbooks {
         } else {
             markerTypeId = 2;
         }
-        int kindId = getKindId(kind);
-        List<Integer> markerPlacesIds = dbHelper.getValuesOfTwoConditionsInt("marker_place_id", "kind_id",
-                "marker_type_id", kindId, markerTypeId, "kind_marker_places");
-        List<Integer> placesWithoutElse = markerPlacesIds.stream()
-                .filter(places -> !places.equals(12))
-                .collect(Collectors.toList());
-        int randomMarkerPlaceId = placesWithoutElse.get(random.nextInt(placesWithoutElse.size()));
-
-        return dbHelper.getValuesOfConditions("name", "id", "marker_places", randomMarkerPlaceId).get(0);
+        //int kindId = getKindId(kind);
+//        List<Integer> markerPlacesIds = dbHelper.getValuesOfTwoConditionsInt("marker_place_id", "kind_id",
+//                "marker_type_id", kindId, markerTypeId, "kind_marker_places");
+//        List<Integer> newMarkerPlacesIds = new ArrayList<>();
+//        for (int i=0; i<markerPlacesIds.size(); i++) {
+//            if (dbHelper.isEmpty("deleted_at", "marker_places", "id", markerPlacesIds.get(i))) {
+//                newMarkerPlacesIds.add(markerPlacesIds.get(i));
+//            }
+//        }
+        List<String> markerPlaces = dbHelper.values("SELECT name FROM marker_places JOIN kind_marker_places ON marker_places.id = kind_marker_places.marker_place_id WHERE kind_id = 1 AND marker_type_id = 2 AND deleted_at IS NULL");
+        return markerPlaces.get(random.nextInt(markerPlaces.size()));
     }
+
+
+
+
 
     // Получить рандомное основание для регистрации
     public String getRandomRegistrationGround() {
@@ -65,11 +71,24 @@ public class AnimalHandbooks {
 
     // Получить рандомный способ содержания у определенного вида животного
     public String getRandomKeepType(String kind) {
-        int kindId = getKindId(kind);
-        List<Integer> keepTypesIds = dbHelper.getIntValuesOfConditions("keep_type_id", "kind_id", "kind_keep_types", kindId);
-        int keepTypesId = keepTypesIds.get(random.nextInt(keepTypesIds.size()));
-        List<String> keepTypes = dbHelper.getValuesOfConditions("name", "id", "keep_types", keepTypesId);
-        return keepTypes.get(0);
+//        int kindId = getKindId(kind);
+//        List<Integer> keepTypesIds = dbHelper.getIntValuesOfConditions("keep_type_id", "kind_id", "kind_keep_types", kindId);
+//
+//        List<Integer> newKeepTypesIds = new ArrayList<>();
+//        for (Integer typesId : keepTypesIds) {
+//            if (dbHelper.isEmpty("deleted_at", "keep_types", "id", typesId)) {
+//                newKeepTypesIds.add(typesId);
+//            }
+//        }
+//        int keepTypesId = newKeepTypesIds.get(random.nextInt(keepTypesIds.size()));
+//
+//        List<String> keepTypes = dbHelper.getValuesOfConditions("name", "id", "keep_types", keepTypesId);
+        List<String> keepTypes = dbHelper.values("SELECT name \n" +
+                "FROM keep_types\n" +
+                "JOIN kind_keep_types\n" +
+                "ON keep_types.id = kind_keep_types.keep_type_id \n" +
+                "WHERE kind_id = 1 AND deleted_at IS NULL");
+        return keepTypes.get(random.nextInt(keepTypes.size()));
     }
 
     // Получить рандомное место содержания у определенного вида животного
@@ -82,7 +101,7 @@ public class AnimalHandbooks {
     }
 
     // Получить рандомное направление продуктивности у определенного вида животного
-    public String getRandomProductDirection(String kind){
+    public String getRandomProductDirection(String kind) {
         int kindId = getKindId(kind);
         List<Integer> productDirectionIds = dbHelper.getIntValuesOfConditions("product_direction_id", "kind_id", "kind_product_directions", kindId);
         int productDirectionId = productDirectionIds.get(random.nextInt(productDirectionIds.size()));

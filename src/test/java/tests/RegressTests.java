@@ -33,11 +33,11 @@ import static com.codeborne.selenide.Selenide.open;
 public class RegressTests {
     @BeforeAll
     static void setUpAll() {
-        // Configuration.headless = true;
+        Configuration.headless = true;
         SelenideLogger.addListener("allure", new AllureSelenide());
         open("https://v3.dev.regagro.ru/");
         AuthPage.autoVet();
-        Configuration.holdBrowserOpen = true;
+        //Configuration.holdBrowserOpen = true;
     }
 
     @AfterAll
@@ -191,49 +191,52 @@ public class RegressTests {
 
         // Редактирование объекта
         String newName = DataGenerator.getEnterpriseName();
-        enterpriseCardPage.editEnterpriseName(newName);
-        Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(newName));
-
-        // Удаление объекта
-        basePage.logout();
-        AuthPage.autoSuperAdmin();
-        basePage.getEnterpriseList();
-        EnterpriseList enterpriseList = new EnterpriseList();
-        enterpriseList.getFindEnterprisePage(newName);
-        //enterpriseCardPage.deleteEnterprise(newName);
-
-        Assertions.assertTrue(dbHelper.isDeleted(newName));
-
-    }
-
-    @DisplayName("RAT-2669 Регистрация объекта," +
-            "RAT-2712 Редактирование объекта," +
-            "RAT-3290 Удаление объекта без животных ")
-    @Test
-    void editEnterprise() {
-        BasePage basePage = new BasePage();
-
-        String name = "Санкт-ПетербургСнабСбыт";
-        basePage.logout();
-        AuthPage.autoSuperAdmin();
-        basePage.getEnterpriseList();
-        EnterpriseList enterpriseList = new EnterpriseList();
-        enterpriseList.getFindEnterprisePage(name);
-        EnterpriseCardPage enterpriseCardPage = new EnterpriseCardPage();
-        Selenide.sleep(4000);
-        // Редактирование объекта
-        String newName = DataGenerator.getEnterpriseName();
-        if (newName.matches(name)) {
+        if (newName.matches(enterprise.getName())) {
             DataGenerator.getEnterpriseName();
         }
         enterpriseCardPage.editEnterpriseName(newName);
         Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(newName));
 
         // Удаление объекта
-
+        Selenide.sleep(3000);
+        basePage.logout();
+        AuthPage.autoSuperAdmin();
+        basePage.getEnterpriseList();
+        EnterpriseList enterpriseList = new EnterpriseList();
+        enterpriseList.getFindEnterprisePage(newName);
+        Selenide.sleep(4000);
         enterpriseCardPage.deleteEnterprise();
         Assertions.assertTrue(dbHelper.isDeleted(newName));
     }
+
+//    @DisplayName("RAT-2669 Регистрация объекта," +
+//            "RAT-2712 Редактирование объекта," +
+//            "RAT-3290 Удаление объекта без животных ")
+//    @Test
+//    void editEnterprise() {
+//        BasePage basePage = new BasePage();
+//
+//        String name = "Санкт-ПетербургСнабСбыт";
+//        basePage.logout();
+//        AuthPage.autoSuperAdmin();
+//        basePage.getEnterpriseList();
+//        EnterpriseList enterpriseList = new EnterpriseList();
+//        enterpriseList.getFindEnterprisePage(name);
+//        EnterpriseCardPage enterpriseCardPage = new EnterpriseCardPage();
+//        Selenide.sleep(4000);
+//        // Редактирование объекта
+//        String newName = DataGenerator.getEnterpriseName();
+//        if (newName.matches(name)) {
+//            DataGenerator.getEnterpriseName();
+//        }
+//        enterpriseCardPage.editEnterpriseName(newName);
+//        Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(newName));
+//
+//        // Удаление объекта
+//
+//        enterpriseCardPage.deleteEnterprise();
+//        Assertions.assertTrue(dbHelper.isDeleted(newName));
+//    }
 
 //    @DisplayName("Регистрация неверифицированного владельца")
 //    @Test

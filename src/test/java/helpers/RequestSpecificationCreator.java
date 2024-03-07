@@ -24,6 +24,7 @@ public class RequestSpecificationCreator {
                 "2Q0MWEzNjcwNTdiM2JiYjA4IiwidGFnIjoiIn0%3D");
         return authScript;
     }
+
     public RequestSpecification getReqSpec(String baseUri) {
         return new RequestSpecBuilder()
                 .setBaseUri(baseUri)
@@ -34,3 +35,4 @@ public class RequestSpecificationCreator {
                 .build();
     }
 }
+

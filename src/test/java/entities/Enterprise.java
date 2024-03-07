@@ -14,7 +14,7 @@ import static io.restassured.RestAssured.given;
 
 @Getter
 public class Enterprise {
-    private Address address = new Address();
+    private final Address address = new Address();
     Random random = new Random();
     DBHelper dbHelper = new DBHelper();
     private String uuid = "5e465691-de23-4c4e-9f46-f35a125b5970";
@@ -50,7 +50,6 @@ public class Enterprise {
             uuid = randomAddress.getObject_guid();
             path = pathAddress + uuid + "/children?levels=";
         }
-
         return randomAddress;
     }
 

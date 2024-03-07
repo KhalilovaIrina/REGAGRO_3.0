@@ -1,43 +1,44 @@
 package Pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import dataGenerator.DataGenerator;
 import entities.Enterprise;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class AddEnterprisePage {
-    private SelenideElement heading = $x("//h2[text()='Регистрация поднадзорного объекта']");
-    private SelenideElement chooseOwnerButton = $x("//button[contains(text(),'Выбрать владельца')]");
-    private SelenideElement modalWindowFindOwner = $x("//h4[contains(text(),'Поиск владельца в системе Regagro')]");
-    private SelenideElement innField = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/form/div/div/div/div[2]/div/div[3]/div[1]/input");
-    private SelenideElement findButton = $x("//button[contains(text(),'Найти')]");
-    private SelenideElement registrationOwnerFromCerber = $x("//button[contains(text(),'Регистрация владельца из Цербер')]");
-    private SelenideElement registrationOwner = $x("//button[contains(text(),'Регистрация неверифицированного владельца')]");
-    private SelenideElement closeButton = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/form/div/div/div/div[1]/button");
-    private SelenideElement backToLookOutButton = $x("//button[contains(text(),'Вернуться к поиску')]");
-    private SelenideElement findItem = $x("//*[@id=search-results]/div/a/div[1]");
-    private SelenideElement chooseButton = $x("//button[contains(text(),'Выбрать')]");
-    private SelenideElement infoAboutEnterprise = $x("//button[contains(text(),'Информация об объекте')]");
-    private SelenideElement nameOfEnterpriseField = $x("//textarea[@name='name']");
-    private SelenideElement typeOfEnterprise = $("#addEnterpriseForm > div:nth-child(2) > div.col-6.mb-3.form-group.pb-3 > div > span > span.selection > span");
-    private SelenideElement typeresult = $("#select2--results > li:nth-child(5) > ul > li:nth-child(1)");
-    private SelenideElement input = $x("/html/body/span/span/span[1]/input");
-    private SelenideElement districtSelection = $x("//*[@id='addEnterpriseForm']/div[5]/div[2]/div/span/span[1]/span");
-    private SelenideElement citySelection = $x("//*[@id='addEnterpriseForm']/div[6]/div[2]/div/span/span[1]/span");
-    private SelenideElement streetSelection = $x("//*[@id='addEnterpriseForm']/div[7]/div[2]/div/span/span[1]/span");
-    private SelenideElement houseNumberDiv = $x("//div[contains(text(),'Дом')]/..//div[@class='col-6 mb-3 form-group pb-3']//input[@class='form-control']");
-    private SelenideElement houseNumber = $x("//div[contains(text(),'Дом')]/..//input");
+    private final SelenideElement heading = $x("//h2[text()='Регистрация поднадзорного объекта']");
+    private final SelenideElement chooseOwnerButton = $x("//button[contains(text(),'Выбрать владельца')]");
+    private final SelenideElement modalWindowFindOwner = $x("//h4[contains(text(),'Поиск владельца в системе Regagro')]");
+    private final SelenideElement innField = $x("//small[contains(text(), 'ИНН')]/following-sibling::input");
+    private final SelenideElement findButton = $x("//button[contains(text(),'Найти')]");
+    private final SelenideElement registrationOwnerFromCerber = $x("//button[contains(text(),'Регистрация владельца из Цербер')]");
+    private final SelenideElement registrationOwner = $x("//button[contains(text(),'Регистрация неверифицированного владельца')]");
+    private final SelenideElement closeButton = $x("//h4[contains(text(), 'Поиск владельца')]/following-sibling::button");
+    private final SelenideElement backToLookOutButton = $x("//button[contains(text(),'Вернуться к поиску')]");
+    private final SelenideElement findItem = $x("//a[@class='search-results-item']");
+    private final SelenideElement chooseButton = $x("//button[contains(text(),'Выбрать')]");
+    private final SelenideElement infoAboutEnterprise = $x("//button[contains(text(),'Информация об объекте')]");
+    private final SelenideElement nameOfEnterpriseField = $x("//textarea[@name='name']");
+    private final SelenideElement typeOfEnterprise = $x("//select[@name='enterprise_type_id']/following-sibling::span/span/span[@aria-controls='select2--container']");
+    private final SelenideElement typeResult = $("#select2--results > li:nth-child(5) > ul > li:nth-child(1)");
+    private final SelenideElement input = $x("/html/body/span/span/span[1]/input");
+    private final SelenideElement districtSelection = $x("//select[@name='district_code']/following-sibling::span/span/span[@aria-controls='select2--container']");
+    private final SelenideElement citySelection = $x("//select[@name='locality_code']/following-sibling::span/span/span[@aria-controls='select2--container']");
+    private final SelenideElement streetSelection = $x("//select[@name='street_code']/following-sibling::span/span/span[@aria-controls='select2--container']");
+    private final SelenideElement houseNumberDiv = $x("//div[contains(text(),'Дом')]/..//div[@class='col-6 mb-3 form-group pb-3']//input[@class='form-control']");
+    private final SelenideElement houseNumber = $x("//div[contains(text(),'Дом')]/..//input");
     //  private SelenideElement serviceAreaSelection = $("#service_area_id");
-    private SelenideElement serviceAreaSelection = $x("//*[@id='addEnterpriseForm']/div[12]/div[2]/div/span/span[1]/span");
+    private final SelenideElement serviceAreaSelection = $x("//*[@id='addEnterpriseForm']/div[12]/div[2]/div/span/span[1]/span");
 
-    private SelenideElement activateRegistrationButton = $("#submitFormsBtn");
-    private SelenideElement innOwnersCard = $x("/html/body/div[2]/div/div[2]/div/main/div[2]/div/div[5]/div[1]/div[2]/div[2]/div[2]");
-    private SelenideElement saveButton = $x("//button[@id='submitFormsBtn']");
+    private final SelenideElement activateRegistrationButton = $("#submitFormsBtn");
+    private final SelenideElement innOwnersCard = $x("//div[contains(text(),'ИНН')]/following-sibling::div[@data-v-1186336b]");
+    private final SelenideElement saveButton = $x("//button[@id='submitFormsBtn']");
     public AddEnterprisePage() {
-        heading.isDisplayed();
+        Selenide.sleep(2000);
+        heading.should(Condition.visible);
     }
 
     public String getOwnersInn() {
@@ -68,7 +69,7 @@ public class AddEnterprisePage {
         //infoAboutEnterprise.click();
         nameOfEnterpriseField.setValue(nameOfEnterprise);
         typeOfEnterprise.click();
-        typeresult.click();
+        typeResult.click();
         input.pressEnter();
         typeOfEnterprise.pressEnter();
         districtSelection.click();
@@ -100,6 +101,7 @@ public class AddEnterprisePage {
         }
         houseNumberDiv.setValue(enterprise.getHouse()).pressEnter();
         //houseNumber.setValue(enterprise.getHouse()).pressEnter();
+        Selenide.sleep(2000);
         serviceAreaSelection.click();
         input.setValue(enterprise.getServiceArea()).pressEnter();
         activateRegistrationButton.click();

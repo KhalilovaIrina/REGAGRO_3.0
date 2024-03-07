@@ -64,8 +64,8 @@ public class EnterpriseCardPage {
         actionsButton.click();
         actionsMenu.should(Condition.visible);
         editEnterpriseButton.click();
-        AddEnterprisePage addEnterprisePage = new AddEnterprisePage();
-        return addEnterprisePage.getEditEnterprise(newName);
+        EditEnterprisePage editEnterprisePage = new EditEnterprisePage();
+        return editEnterprisePage.getEditEnterprise(newName);
     }
 
     public EnterpriseList deleteEnterprise() {

@@ -56,7 +56,7 @@ public class DBHelper {
         try {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT " + columnName + " FROM " + table);
-            while (resultSet.next()) {
+            while (resultSet.next() ) {
                 data.add(resultSet.getString(columnName));
             }
         } catch (SQLException e) {
@@ -231,6 +231,36 @@ public class DBHelper {
                 e.printStackTrace();
             }
         }
+    }
+
+    public boolean isEmpty(String column, String table, String columnConditions, int condition) {
+        Connection conn = getConnection(handbooks);
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery
+                    ("SELECT " + column + " FROM " + table + " WHERE " + columnConditions + " = '" + condition + "'");
+            if (!resultSet.next()){
+                return true;
+            } else return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> values (String query) {
+        List<String> values = new ArrayList<>();
+        Connection conn = getConnection(handbooks);
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery
+                    (query);
+            while (resultSet.next()){
+                values.add(resultSet.getString("name"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return values;
     }
 
     @DisplayName("Проверка успешного удаления объекта")

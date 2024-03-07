@@ -43,6 +43,7 @@ public class HomePage {
     EnterprisesPage enterprisesPage = new EnterprisesPage();
     public boolean getMap() {
         mapButton.click();
+        Selenide.sleep(2000);
         return yandexMap.isDisplayed();
     }
 

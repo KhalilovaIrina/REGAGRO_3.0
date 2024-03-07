@@ -2,9 +2,11 @@ package entities;
 
 import dataGenerator.DataGenerator;
 import handbooks.AnimalHandbooks;
+import lombok.Getter;
 
 import java.sql.SQLException;
 
+@Getter
 public class AnimalGroup {
     private String kind;
     private String identificationNumber;
@@ -21,82 +23,12 @@ public class AnimalGroup {
     private String keepType;
     private String keepPlace;
     private String productDirection;
-    private String registrationDate;
-    private String enterprise;
 
     private AnimalGroup() {
     }
 
-    public String getKind() {
-        return kind;
-    }
-
-    public String getIdentificationNumber() {
-        return identificationNumber;
-    }
-
-    public String getMarkerType() {
-        return markerType;
-    }
-
-    public String getMarkerPlace() {
-        return markerPlace;
-    }
-
-    public String getFirstMarkerDate() {
-        return firstMarkerDate;
-    }
-
-    public String getRegistrationGround() {
-        return registrationGround;
-    }
-
-    public String getBirthDateFrom() {
-        return birthDateFrom;
-    }
-
-    public String getBirthDateBefore() {
-        return birthDateBefore;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getCount() {
-        return count;
-    }
-
-    public String getCountOfMale() {
-        return countOfMale;
-    }
-
-    public String getCountOfFemale() {
-        return countOfFemale;
-    }
-
-    public String getKeepType() {
-        return keepType;
-    }
-
-    public String getKeepPlace() {
-        return keepPlace;
-    }
-
-    public String getProductDirection() {
-        return productDirection;
-    }
-
-    public String getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public String getEnterprise() {
-        return enterprise;
-    }
-
     public static class AnimalGroupBuilder {
-        private AnimalGroup animalGroup;
+        private final AnimalGroup animalGroup;
         AnimalHandbooks handbooks = new AnimalHandbooks();
 
         public AnimalGroupBuilder() {
@@ -168,7 +100,7 @@ public class AnimalGroup {
         public AnimalGroup.AnimalGroupBuilder setCountOfFemale() {
             int bound = Integer.parseInt(animalGroup.count);
             int male = Integer.parseInt(animalGroup.countOfMale);
-            animalGroup.countOfFemale = String.valueOf(bound-male);
+            animalGroup.countOfFemale = String.valueOf(bound - male);
             return this;
         }
 
