@@ -2,12 +2,12 @@ package Pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import helpers.DBHelper;
 import org.junit.jupiter.api.DisplayName;
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
-
     private SelenideElement user = $x("/html/body/nav/div/div[2]/ul[2]/li[2]/a");
     private SelenideElement logout = $x("/html/body/nav/div/div[2]/ul[2]/li[2]/div/div");
     // Сайдбар
@@ -25,6 +25,8 @@ public class BasePage {
     // Реестры
     private SelenideElement registryAccordionButton = $x("//*[@id='flush-headingTwo']/button");
     private SelenideElement enterprisesAccordionButton = $x("//a[@href='https://v3.dev.regagro.ru/enterprises']");
+    private SelenideElement findAnimalField = $x("//span[@title='Поиск животного (рег. номер)']");
+    private SelenideElement input = $x("//input[@class='select2-search__field']");
     // Выбытие
     // Задания
     // Отчеты и аналитика
@@ -36,7 +38,7 @@ public class BasePage {
         return new AuthPage();
     }
 
-    @DisplayName("Переход из сайдбара на страницу Регистрации объекта")
+    // Переход из сайдбара на страницу Регистрации объекта
     public AddEnterprisePage getAddEnterprisePage() {
         registrationAccordionButton.click();
         objectRegistrationAccordionButton.click();
@@ -44,7 +46,7 @@ public class BasePage {
         return new AddEnterprisePage();
     }
 
-    @DisplayName("Переход из сайдбара на страницу Регистрации животного")
+// Переход из сайдбара на страницу Регистрации животного
 
     public AddAnimalPage getAddAnimalPage() {
         registrationAccordionButton.click();
@@ -63,7 +65,7 @@ public class BasePage {
         return new HomePage();
     }
 
-    @DisplayName("Переход из сайдбара на страницу Реестр объектов")
+    // Переход из сайдбара на страницу Реестр объектов
     public EnterpriseList getEnterpriseList() {
         registryAccordionButton.click();
 
@@ -71,4 +73,22 @@ public class BasePage {
         Selenide.sleep(2000);
         return new EnterpriseList();
     }
+
+    // Поиск индивидуального животного
+    public AnimalPassportPage getFoundAnimal(String number) {
+        findAnimalField.click();
+        input.setValue(number);
+        Selenide.sleep(2000);
+        input.pressEnter();
+        return new AnimalPassportPage();
+    }
+
+    public AnimalGroupPassportPage getFoundAnimalGroup(String number) {
+        findAnimalField.click();
+        input.setValue(number);
+        Selenide.sleep(2000);
+        input.pressEnter();
+        return new AnimalGroupPassportPage();
+    }
+
 }

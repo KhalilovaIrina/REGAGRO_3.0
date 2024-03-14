@@ -36,7 +36,7 @@ public class AuthPage {
         return new HomePage();
     }
     @DisplayName("Авторизация суперадмин")
-    public static HomePage autoSuperAdmin() {
+    public static HomePage authSuperAdmin() {
         email.shouldBe(Condition.visible, Duration.ofSeconds(15));
         email.setValue("admin@regagro.net");
         password.setValue("44qsaTeF@p8I");

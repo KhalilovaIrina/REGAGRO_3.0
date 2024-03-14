@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class DBHelper {
     private static final String regagro_3_0 = "regagro_3_0";
@@ -37,7 +38,7 @@ public class DBHelper {
         try {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT " + columnName + " FROM " + table);
-            while (resultSet.next() ) {
+            while (resultSet.next()) {
                 data.add(resultSet.getString(columnName));
             }
         } catch (SQLException e) {
@@ -220,7 +221,7 @@ public class DBHelper {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery
                     ("SELECT " + column + " FROM " + table + " WHERE " + columnConditions + " = '" + condition + "'");
-            if (!resultSet.next()){
+            if (!resultSet.next()) {
                 return true;
             } else return false;
         } catch (SQLException e) {
@@ -228,15 +229,15 @@ public class DBHelper {
         }
     }
 
-    public List<String> values (String query) {
+    public List<String> values(String query, String dbName, String columnName) {
         List<String> values = new ArrayList<>();
-        Connection conn = getConnection(handbooks);
+        Connection conn = getConnection(dbName);
         try {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery
                     (query);
-            while (resultSet.next()){
-                values.add(resultSet.getString("name"));
+            while (resultSet.next()) {
+                values.add(resultSet.getString(columnName));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -262,53 +263,18 @@ public class DBHelper {
         }
     }
 
+    Random random = new Random();
 
-//    public boolean isAnimalInDatabase(String number) {
-//        Connection conn = getConnection();
-//        String select = "SELECT number FROM animals WHERE number = 'number'";
-//        if (!isEmpty()) {
-//            return true;
-//        } else return false;
-//    }
-//
-//    public boolean isEnterpriseInDatabase(String name) {
-//        Connection conn = getConnection();
-//        String select = "SELECT name FROM enterprises WHERE name = 'name'";
-//        if
-//    }
-
-//    @SneakyThrows
-//    public static String getStatusForCredit() {
-//        var conn = getConnection();
-//        var status = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
-//        var statusName = runner.query(conn, status, new ScalarHandler<String>());
-//        return statusName;
-//    }
-
-//    public boolean isEmpty() {
-//        try {
-//            var query = "SELECT COUNT(*) FROM animals";
-//            var conn = getConnection();
-//            var statement = conn.createStatement();
-//            var resultSet = statement.executeQuery(query);
-//            resultSet.next();
-//            var count = resultSet.getInt(1);
-//            return count == 0;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-//
-//
-//    @SneakyThrows
-//    public static void clearDbTable() {
-//        var conn = getConnection();
-//
-//        runner.execute(conn, "DELETE FROM payment_entity;");
-//        runner.execute(conn, "DELETE FROM order_entity;");
-//        runner.execute(conn, "DELETE FROM credit_request_entity;");
-//    }
-
-
+    public String getRandomAnimalNumber() {
+        List<String> animalNumbers = values("SELECT number\n" +
+                "FROM animals\n" +
+                "WHERE is_super_group = 0 AND is_group = 0 AND deleted_at IS NULL", "regagro_3_0", "number");
+        return animalNumbers.get(random.nextInt(animalNumbers.size()));
+    }
+    public String getRandomAnimalGroupNumber() {
+        List<String> animalNumbers = values("SELECT number\n" +
+                "FROM animals\n" +
+                "WHERE is_super_group = 0 AND is_group = 1 AND deleted_at IS NULL", "regagro_3_0", "number");
+        return animalNumbers.get(random.nextInt(animalNumbers.size()));
+    }
 }

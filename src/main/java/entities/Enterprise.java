@@ -77,7 +77,7 @@ public class Enterprise {
                 "FROM enterprise_types\n" +
                 "JOIN legal_form_enterprise_types\n" +
                 "ON enterprise_types.id = legal_form_enterprise_types.enterprise_type_id\n" +
-                "WHERE legal_form_enterprise_types.legal_form_id =" + legalFormId + " AND deleted_at IS NULL");
+                "WHERE legal_form_enterprise_types.legal_form_id =" + legalFormId + " AND deleted_at IS NULL", "handbooks", "name");
         return enterpriseTypes.get(random.nextInt(enterpriseTypes.size()));
     }
 //

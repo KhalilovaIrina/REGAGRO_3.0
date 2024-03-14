@@ -71,7 +71,7 @@ public class RegistrationEditDeleteEnterpriseTest {
         // Удаление объекта
         Selenide.sleep(3000);
         basePage.logout();
-        AuthPage.autoSuperAdmin();
+        AuthPage.authSuperAdmin();
         basePage.getEnterpriseList();
         EnterpriseList enterpriseList = new EnterpriseList();
         enterpriseList.getFindEnterprisePage(newName);
