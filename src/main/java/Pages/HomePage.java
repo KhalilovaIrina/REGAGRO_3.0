@@ -1,5 +1,6 @@
 package Pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
@@ -17,28 +18,28 @@ public class HomePage {
     BasePage basePage = new BasePage();
 
     // Объекты и животные
-    private SelenideElement objectAccordionButton = $x("//button[text()='Объекты']");
-    private SelenideElement animalsAccordionButton = $x("//button[text()='Животные']");
+    private SelenideElement objectAccordionButton = Selenide.$x("//button[text()='Объекты']");
+    private SelenideElement animalsAccordionButton = Selenide.$x("//button[text()='Животные']");
 
-    private SelenideElement objectAccordionButtonShow = $x("//*[@id=home-page]/div/div[4]/div/div");
-    private SelenideElement animalsAccordionButtonShow = $x("//*[@id=home-page]/div/div[5]/div/div");
+    private SelenideElement objectAccordionButtonShow = Selenide.$x("//*[@id=home-page]/div/div[4]/div/div");
+    private SelenideElement animalsAccordionButtonShow = Selenide.$x("//*[@id=home-page]/div/div[5]/div/div");
 
 
     // Фильтры
-    private SelenideElement filtersButton = $x("//*[@id=home-page]/div/div[1]/div[1]/button");
-    private SelenideElement filtersModalShow = $x("/*[@id=home-page]/div/div[2]/div");
+    private SelenideElement filtersButton = Selenide.$x("//*[@id=home-page]/div/div[1]/div[1]/button");
+    private SelenideElement filtersModalShow = Selenide.$x("/*[@id=home-page]/div/div[2]/div");
 
     //$x("");
 
-    private SelenideElement mapButton = $x("//button[text()='Показать карту']");
+    private SelenideElement mapButton = Selenide.$x("//button[text()='Показать карту']");
    // private SelenideElement yandexMap = $x("//ymaps[contains(@class, 'ymaps-2-1-79-map')][contains(@style, 'width: 1811px; height: 560px')]");
-    private SelenideElement yandexMap =  $("ymaps[class=ymaps-2-1-79-map]");
+    private SelenideElement yandexMap =  Selenide.$("ymaps[class=ymaps-2-1-79-map]");
 
-    private SelenideElement hideMapButton = $x("//button[text()='Скрыть карту']");
-    private SelenideElement showRegistryButton = $x("//button[text()='Показать в реестре']");
+    private SelenideElement hideMapButton = Selenide.$x("//button[text()='Скрыть карту']");
+    private SelenideElement showRegistryButton = Selenide.$x("//button[text()='Показать в реестре']");
 
     public HomePage(){
-       mapButton.shouldBe(visible, Duration.ofSeconds(10));
+       mapButton.shouldBe(Condition.visible, Duration.ofSeconds(10));
     }
     EnterprisesPage enterprisesPage = new EnterprisesPage();
     public boolean getMap() {
@@ -49,7 +50,7 @@ public class HomePage {
 
     public boolean closeMap() {
         hideMapButton.click();
-        yandexMap.shouldNot(visible,Duration.ofSeconds(1));
+        yandexMap.shouldNot(Condition.visible,Duration.ofSeconds(1));
         return true;
     }
 

@@ -71,14 +71,18 @@ public class AnimalGroup {
             return this;
         }
 
-        public AnimalGroup.AnimalGroupBuilder setRegistrationGround() throws SQLException {
+        public AnimalGroup.AnimalGroupBuilder setRegistrationGround() {
             animalGroup.registrationGround = handbooks.getRandomRegistrationGround();
             return this;
         }
 
-        public AnimalGroup.AnimalGroupBuilder setBirthDateRange() throws SQLException {
-            animalGroup.birthDateFrom = DataGenerator.getDateRange(animalGroup.registrationGround).get(0);
-            animalGroup.birthDateBefore = DataGenerator.getDateRange(animalGroup.registrationGround).get(1);
+        public AnimalGroup.AnimalGroupBuilder setBirthDateRange() {
+            if (animalGroup.kind.matches("Пчёлы")) {
+                animalGroup.birthDateFrom = DataGenerator.getDateRange(animalGroup.registrationGround).get(0);
+            } else {
+                animalGroup.birthDateFrom = DataGenerator.getDateRange(animalGroup.registrationGround).get(0);
+                animalGroup.birthDateBefore = DataGenerator.getDateRange(animalGroup.registrationGround).get(1);
+            }
             return this;
         }
 
@@ -93,28 +97,35 @@ public class AnimalGroup {
         }
 
         public AnimalGroup.AnimalGroupBuilder setCountOfMale() {
-            animalGroup.countOfMale = DataGenerator.getNumber(0, Integer.parseInt(animalGroup.count));
+            if (animalGroup.gender.matches("Самцы")) {
+                animalGroup.countOfMale = animalGroup.count;
+            } else
+                animalGroup.countOfMale = DataGenerator.getNumber(0, Integer.parseInt(animalGroup.count));
             return this;
         }
 
         public AnimalGroup.AnimalGroupBuilder setCountOfFemale() {
-            int bound = Integer.parseInt(animalGroup.count);
-            int male = Integer.parseInt(animalGroup.countOfMale);
-            animalGroup.countOfFemale = String.valueOf(bound - male);
+            if (animalGroup.gender.matches("Самцы")) {
+                animalGroup.countOfMale = animalGroup.count;
+            } else {
+                int bound = Integer.parseInt(animalGroup.count);
+                int male = Integer.parseInt(animalGroup.countOfMale);
+                animalGroup.countOfFemale = String.valueOf(bound - male);
+            }
             return this;
         }
 
-        public AnimalGroup.AnimalGroupBuilder setKeepType() throws SQLException {
+        public AnimalGroup.AnimalGroupBuilder setKeepType() {
             animalGroup.keepType = handbooks.getRandomKeepType(animalGroup.kind);
             return this;
         }
 
-        public AnimalGroup.AnimalGroupBuilder setKeepPlace() throws SQLException {
+        public AnimalGroup.AnimalGroupBuilder setKeepPlace() {
             animalGroup.keepPlace = handbooks.getRandomKeepPlace(animalGroup.kind);
             return this;
         }
 
-        public AnimalGroup.AnimalGroupBuilder setProductDirection() throws SQLException {
+        public AnimalGroup.AnimalGroupBuilder setProductDirection() {
             animalGroup.productDirection = handbooks.getRandomProductDirection(animalGroup.kind);
             return this;
         }
@@ -123,5 +134,44 @@ public class AnimalGroup {
             return animalGroup;
         }
     }
+
+    public static AnimalGroup createAnimalGroup(String kind) {
+        if (kind.equals("Свиньи")) {
+            return new AnimalGroup.AnimalGroupBuilder()
+                    .setAnimalKind(kind)
+                    .setMarkerType(kind)
+                    .setMarkerPlace()
+                    .setIdentificationNumber()
+                    .setFirstMarkerDate()
+                    .setRegistrationGround()
+                    .setBirthDateRange()
+                    .setGender()
+                    .setCount()
+                    .setCountOfMale()
+                    .setCountOfFemale()
+                    .setKeepType()
+                    .setKeepPlace()
+                    .setProductDirection()
+                    .build();
+        }
+        if (kind.equals("Пчёлы")) {
+            return new AnimalGroup.AnimalGroupBuilder()
+                    .setAnimalKind(kind)
+                    .setMarkerType(kind)
+                    .setMarkerPlace()
+                    .setIdentificationNumber()
+                    .setFirstMarkerDate()
+                    .setRegistrationGround()
+                    .setBirthDateRange()
+                    .setKeepType()
+                    .setKeepPlace()
+                    .setProductDirection()
+                    .build();
+        } else {
+            return null;
+        }
+    }
+
+
 }
 

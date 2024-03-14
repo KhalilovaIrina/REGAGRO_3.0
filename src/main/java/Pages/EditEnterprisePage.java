@@ -7,9 +7,9 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class EditEnterprisePage {
-    private final SelenideElement heading = $x("//h2[text()='Редактирование поднадзорного объекта']");
-    private final SelenideElement nameOfEnterpriseField = $x("//textarea[@name='name']");
-    private final SelenideElement saveButton = $x("//button[@id='submitFormsBtn']");
+    private final SelenideElement heading = Selenide.$x("//h2[text()='Редактирование поднадзорного объекта']");
+    private final SelenideElement nameOfEnterpriseField = Selenide.$x("//textarea[@name='name']");
+    private final SelenideElement saveButton = Selenide.$x("//button[@id='submitFormsBtn']");
     public EditEnterprisePage() {
         Selenide.sleep(2000);
         heading.should(Condition.visible);

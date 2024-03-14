@@ -58,18 +58,15 @@ public class DataGenerator {
     public static List<String> getDateRange(String ground) {
         List<String> dateRange = new ArrayList<>();
         int randomInt;
-        int yearToSubtract;
-        if (ground.matches("Рождение")) {
+        if (ground.equals("Рождение")) {
             randomInt = range(1, 5);
-            yearToSubtract = 0;
         } else {
             randomInt = range(1, 11);
-            yearToSubtract = range(1, 3);
         }
         String day = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
         String monthFrom = LocalDate.now().minusMonths(randomInt).format(DateTimeFormatter.ofPattern("MM"));
         String monthBefore = LocalDate.now().minusMonths(randomInt - 1).format(DateTimeFormatter.ofPattern("MM"));
-        String year = LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("yyyy"));
+        String year = LocalDate.now().minusYears(range(1, 3)).format(DateTimeFormatter.ofPattern("yyyy"));
         dateRange.add(day + monthFrom + year);
         dateRange.add(day + monthBefore + year);
         return dateRange;

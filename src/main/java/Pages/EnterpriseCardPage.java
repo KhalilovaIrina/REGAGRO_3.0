@@ -4,26 +4,25 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import helpers.DBHelper;
-import org.junit.jupiter.api.Assertions;
 
 import static com.codeborne.selenide.Selenide.$x;
 
 public class EnterpriseCardPage {
 
-    private SelenideElement heading = $x("//h2[text()='Карточка объекта']");
+    private SelenideElement heading = Selenide.$x("//h2[text()='Карточка объекта']");
 
-    private SelenideElement owner = $x("//*[@id=v-pills-tabContent]/div[1]/div[1]/div[2]/div[2]");
-    private SelenideElement inn = $x("//*[@id=v-pills-tabContent]/div[1]/div[2]/div[2]/div[2]");
-    private SelenideElement kpp = $x("//*[@id=v-pills-tabContent]/div[1]/div[3]/div[3]/div[2]");
-    private SelenideElement serviceArea = $x("//*[@id=v-pills-tabContent]/div[1]/div[4]/div[1]/div[2]");
-    private SelenideElement fullAddress = $x("//*[@id=v-pills-tabContent]/div[1]/div[4]/div[2]/div[2]");
-    private SelenideElement actionsButton = $x("//span[contains(text(), 'Действия')]");
-    private SelenideElement actionsMenu = $x("//ul[@class='dropdown-menu show']");
-    private SelenideElement editOwnerButton = $x("//a[contains(text(),'Редактировать владельца')]");
-    private SelenideElement editEnterpriseButton = $x("//a[contains(text(),'Редактировать объект')]");
-    private SelenideElement deleteEnterpriseButton = $x("//a[contains(text(),'Удалить объект')]");
-    private SelenideElement okButton = $x("//button[contains(text(),'Да')]");
-    private SelenideElement messageDelete = $x("//h4[contains(text(),'Удалить объект')]");
+    private SelenideElement owner = Selenide.$x("//*[@id=v-pills-tabContent]/div[1]/div[1]/div[2]/div[2]");
+    private SelenideElement inn = Selenide.$x("//*[@id=v-pills-tabContent]/div[1]/div[2]/div[2]/div[2]");
+    private SelenideElement kpp = Selenide.$x("//*[@id=v-pills-tabContent]/div[1]/div[3]/div[3]/div[2]");
+    private SelenideElement serviceArea = Selenide.$x("//*[@id=v-pills-tabContent]/div[1]/div[4]/div[1]/div[2]");
+    private SelenideElement fullAddress = Selenide.$x("//*[@id=v-pills-tabContent]/div[1]/div[4]/div[2]/div[2]");
+    private SelenideElement actionsButton = Selenide.$x("//span[contains(text(), 'Действия')]");
+    private SelenideElement actionsMenu = Selenide.$x("//ul[@class='dropdown-menu show']");
+    private SelenideElement editOwnerButton = Selenide.$x("//a[contains(text(),'Редактировать владельца')]");
+    private SelenideElement editEnterpriseButton = Selenide.$x("//a[contains(text(),'Редактировать объект')]");
+    private SelenideElement deleteEnterpriseButton = Selenide.$x("//a[contains(text(),'Удалить объект')]");
+    private SelenideElement okButton = Selenide.$x("//button[contains(text(),'Да')]");
+    private SelenideElement messageDelete = Selenide.$x("//h4[contains(text(),'Удалить объект')]");
 
     public EnterpriseCardPage() {
         heading.should(Condition.visible);
@@ -41,7 +40,7 @@ public class EnterpriseCardPage {
 
     public String getNameValue(String enterpriseName) {
         String xpathLocatorName = String.format("//div[@class='col-auto'][contains(text(), '%s')]", enterpriseName);
-        return $x(xpathLocatorName).getText();
+        return Selenide.$x(xpathLocatorName).getText();
     }
 
     public String getServiceAreaValue() {

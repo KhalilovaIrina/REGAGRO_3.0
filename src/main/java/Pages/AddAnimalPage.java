@@ -1,5 +1,6 @@
 package Pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import dataGenerator.DataGenerator;
@@ -9,7 +10,6 @@ import entities.AnimalGroup;
 import java.sql.SQLException;
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -38,7 +38,7 @@ public class AddAnimalPage {
     private final SelenideElement genderFemale = $("input[id=female]");
     private final SelenideElement genderMale = $("input[id=male]");
     private final SelenideElement genderMixed = $("input[id=mixed_gender]");
-    private final SelenideElement count = $("//input[@name='count']");
+    private final SelenideElement count = $x("//input[@name='count']");
     private final SelenideElement countOfMale = $x("//div[contains(text(), 'Самцы')]/..//input");
     private final SelenideElement countOfFemale = $x("//div[contains(text(), 'Самки')]/..//input");
     private final SelenideElement nickName = $x("//div[contains(text(), 'Кличка')]/following::input[@type='text']");
@@ -51,14 +51,14 @@ public class AddAnimalPage {
 
     public AddAnimalPage() {
         Selenide.sleep(2500);
-        SelenideElement heading = $x("//h2[text()='Регистрация животного']");
-        heading.shouldBe(visible);
+        SelenideElement heading = Selenide.$x("//h2[contains(text(), 'Регистрация')]");
+        heading.shouldBe(Condition.visible);
     }
 
     public void getActivateRegistrationChickens(Animal chicken) throws SQLException {
         // Выбор объекта
         findObjectButton.click();
-        innCheckbox.shouldBe(visible, Duration.ofSeconds(2));
+        innCheckbox.shouldBe(Condition.visible, Duration.ofSeconds(2));
         innCheckbox.click();
         innField.setValue("0278039949");
         findButtonModalWindow.click();
@@ -116,67 +116,67 @@ public class AddAnimalPage {
         Selenide.sleep(2000);
     }
 
-    public void getActivateRegistrationBees(Animal bees) {
-        // Выбор объекта
-        findObjectButton.click();
-        innCheckbox.shouldBe(visible, Duration.ofSeconds(2));
-        innCheckbox.click();
-        innField.setValue("0278039949");
-        findButtonModalWindow.click();
-        description.click();
-        chooseButton.click();
-
-        // Вид животного
-        animalKind.click();
-        input.setValue(bees.getKind()).pressEnter();
-
-        // Идентификация
-        markerTypes.click();
-        input.setValue(bees.getMarkerType()).pressEnter();
-        identificationNumberField.click();
-        identificationNumberField.setValue(bees.getIdentificationNumber()).pressEnter();
-        markerPlacesSelection.click();
-        input.setValue(bees.getMarkerPlace()).pressEnter();
-
-        // Дата первичного маркирования
-        firstMarkerDate.click();
-        firstMarkerDateInput.setValue(bees.getFirstMarkerDate()).pressEnter();
-
-        // Основание
-        foundation.click();
-        input.setValue(bees.getRegistrationGround()).pressEnter();
-
-        // Масть
-        suit.click();
-        input.setValue(bees.getSuit()).pressEnter();
-
-        // Дата заселения улья
-        birthDate.click();
-        birthDateInput.setValue(bees.getBirthDate()).pressEnter();
-
-        // Тип содержания
-        keepTypes.click();
-        input.setValue(bees.getKeepType()).pressEnter();
-
-        // Место содержания
-        keepPlaces.click();
-        input.setValue(bees.getKeepPlace()).pressEnter();
-
-        // Направление продуктивности
-        productDirections.click();
-        input.setValue(bees.getProductDirection()).pressEnter();
-
-        // Активация
-        activateButton.click();
-        Selenide.sleep(2000);
-    }
+//    public void getActivateRegistrationBees(Animal bees) {
+//        // Выбор объекта
+//        findObjectButton.click();
+//        innCheckbox.shouldBe(Condition.visible, Duration.ofSeconds(2));
+//        innCheckbox.click();
+//        innField.setValue("0278039949");
+//        findButtonModalWindow.click();
+//        description.click();
+//        chooseButton.click();
+//
+//        // Вид животного
+//        animalKind.click();
+//        input.setValue(bees.getKind()).pressEnter();
+//
+//        // Идентификация
+//        markerTypes.click();
+//        input.setValue(bees.getMarkerType()).pressEnter();
+//        identificationNumberField.click();
+//        identificationNumberField.setValue(bees.getIdentificationNumber()).pressEnter();
+//        markerPlacesSelection.click();
+//        input.setValue(bees.getMarkerPlace()).pressEnter();
+//
+//        // Дата первичного маркирования
+//        firstMarkerDate.click();
+//        firstMarkerDateInput.setValue(bees.getFirstMarkerDate()).pressEnter();
+//
+//        // Основание
+//        foundation.click();
+//        input.setValue(bees.getRegistrationGround()).pressEnter();
+//
+//        // Масть
+//        suit.click();
+//        input.setValue(bees.getSuit()).pressEnter();
+//
+//        // Дата заселения улья
+//        birthDate.click();
+//        birthDateInput.setValue(bees.getBirthDate()).pressEnter();
+//
+//        // Тип содержания
+//        keepTypes.click();
+//        input.setValue(bees.getKeepType()).pressEnter();
+//
+//        // Место содержания
+//        keepPlaces.click();
+//        input.setValue(bees.getKeepPlace()).pressEnter();
+//
+//        // Направление продуктивности
+//        productDirections.click();
+//        input.setValue(bees.getProductDirection()).pressEnter();
+//
+//        // Активация
+//        activateButton.click();
+//        Selenide.sleep(2000);
+//    }
 
     // Регистрация КРС
     public void getActivateRegistrationKRS(Animal krs) {
 
         // Выбор объекта
         findObjectButton.click();
-        innCheckbox.shouldBe(visible, Duration.ofSeconds(2));
+        innCheckbox.shouldBe(Condition.visible, Duration.ofSeconds(2));
         innCheckbox.click();
         innField.setValue("0278039949");
         findButtonModalWindow.click();
@@ -243,7 +243,7 @@ public class AddAnimalPage {
 
         // Выбор объекта
         findObjectButton.click();
-        innCheckbox.shouldBe(visible, Duration.ofSeconds(2));
+        innCheckbox.shouldBe(Condition.visible, Duration.ofSeconds(2));
         innCheckbox.click();
         innField.setValue("0278039949");
         findButtonModalWindow.click();
@@ -259,6 +259,7 @@ public class AddAnimalPage {
         input.setValue(pigs.getMarkerType()).pressEnter();
         identificationNumberField.click();
         identificationNumberField.setValue(pigs.getIdentificationNumber()).pressEnter();
+        Selenide.sleep(1500);
         markerPlacesSelection.click();
         input.setValue(pigs.getMarkerPlace()).pressEnter();
 
@@ -271,6 +272,7 @@ public class AddAnimalPage {
         input.setValue(pigs.getRegistrationGround()).pressEnter();
 
         // Диапазон дат рождения
+
         birthDateFrom.click();
         birthDateInput.setValue(pigs.getBirthDateFrom()).pressEnter();
 
@@ -280,15 +282,18 @@ public class AddAnimalPage {
         //Пол
         if (pigs.getGender().matches("Самка")) {
             genderFemale.click();
+            countOfFemale.setValue(pigs.getCountOfFemale());
         }
-        if (pigs.getGender().matches("Смешанный")) {
+        if (pigs.getGender().matches("Самцы")) {
+            genderMale.click();
+            countOfMale.setValue(pigs.getCountOfMale());
+        } else
             genderMixed.click();
-        } else genderMale.click();
+        countOfMale.setValue(pigs.getCountOfMale());
+        countOfFemale.setValue(pigs.getCountOfFemale());
 
         // Количество
         count.setValue(pigs.getCount());
-        countOfMale.setValue(pigs.getCountOfMale());
-        countOfFemale.setValue(pigs.getCountOfFemale());
 
         // Тип содержания
         keepTypes.click();
@@ -307,13 +312,72 @@ public class AddAnimalPage {
         Selenide.sleep(2000);
     }
 
+    public void getActivateRegistrationBees(AnimalGroup bees) {
+        // Выбор объекта
+        findObjectButton.click();
+        innCheckbox.shouldBe(Condition.visible, Duration.ofSeconds(2));
+        innCheckbox.click();
+        innField.setValue("0278039949");
+        findButtonModalWindow.click();
+        description.click();
+        chooseButton.click();
+
+        // Вид животного
+        animalKind.click();
+        input.setValue(bees.getKind()).pressEnter();
+
+        // Идентификация
+        markerTypes.click();
+        input.setValue(bees.getMarkerType()).pressEnter();
+        identificationNumberField.click();
+        identificationNumberField.setValue(bees.getIdentificationNumber()).pressEnter();
+        markerPlacesSelection.click();
+        input.setValue(bees.getMarkerPlace()).pressEnter();
+
+        // Дата первичного маркирования
+        firstMarkerDate.click();
+        firstMarkerDateInput.setValue(bees.getFirstMarkerDate()).pressEnter();
+
+        // Основание
+        foundation.click();
+        input.setValue(bees.getRegistrationGround()).pressEnter();
+
+        // Дата заселения улья
+        birthDateFrom.click();
+        birthDateInput.setValue(bees.getBirthDateFrom()).pressEnter();
+
+        // Тип содержания
+        keepTypes.click();
+        input.setValue(bees.getKeepType()).pressEnter();
+
+        // Место содержания
+        keepPlaces.click();
+        input.setValue(bees.getKeepPlace()).pressEnter();
+
+        // Направление продуктивности
+        productDirections.click();
+        input.setValue(bees.getProductDirection()).pressEnter();
+
+        // Активация
+        activateButton.click();
+        Selenide.sleep(2000);
+    }
+
     //Переход в паспорт животного после успешной регистрации
 
-    public AnimalPassportPage getAnimalPassportPage() {
+    public void getAnimalPassportPage() {
 
-        openPassport.shouldBe(visible, Duration.ofSeconds(10));
+        openPassport.shouldBe(Condition.visible, Duration.ofSeconds(10));
         openPassport.click();
-        return new AnimalPassportPage();
+        new AnimalPassportPage();
+
+    }
+
+    public void getAnimalGroupPassportPage() {
+
+        openPassport.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        openPassport.click();
+        new AnimalGroupPassportPage();
 
     }
 
@@ -321,7 +385,7 @@ public class AddAnimalPage {
     //Уведомление об успешной регистрации"
     public boolean getMessageSuccessRegistration() {
         Selenide.sleep(2500);
-        return $x("//button[contains(., 'Добавить еще')]").isDisplayed();
+        return Selenide.$x("//button[contains(., 'Добавить еще')]").isDisplayed();
     }
 
 //Регистрация 'Добавить еще'

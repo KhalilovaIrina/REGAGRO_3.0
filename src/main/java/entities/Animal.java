@@ -5,8 +5,6 @@ import dataGenerator.DataGenerator;
 import handbooks.AnimalHandbooks;
 import lombok.Getter;
 
-import java.sql.SQLException;
-
 @Getter
 public class Animal {
     private String kind;
@@ -70,7 +68,7 @@ public class Animal {
             return this;
         }
 
-        public AnimalBuilder setRegistrationGround() throws SQLException {
+        public AnimalBuilder setRegistrationGround() {
             animal.registrationGround = handbooks.getRandomRegistrationGround();
             return this;
         }
@@ -80,7 +78,7 @@ public class Animal {
             return this;
         }
 
-        public AnimalBuilder setBirthDate() throws SQLException {
+        public AnimalBuilder setBirthDate() {
             if (animal.registrationGround.matches("Рождение животного")) {
                 animal.birthDate = DataGenerator.getPastDateForBirthGround();
             } else {
@@ -99,23 +97,78 @@ public class Animal {
             return this;
         }
 
-        public AnimalBuilder setKeepType() throws SQLException {
+        public AnimalBuilder setKeepType() {
             animal.keepType = handbooks.getRandomKeepType(animal.kind);
             return this;
         }
 
-        public AnimalBuilder setKeepPlace() throws SQLException {
+        public AnimalBuilder setKeepPlace() {
             animal.keepPlace = handbooks.getRandomKeepPlace(animal.kind);
             return this;
         }
 
-        public AnimalBuilder setProductDirection() throws SQLException {
+        public AnimalBuilder setProductDirection() {
             animal.productDirection = handbooks.getRandomProductDirection(animal.kind);
             return this;
         }
 
         public Animal build() {
             return animal;
+        }
+    }
+
+    public static Animal createAnimal(String kind) {
+        if (kind.equals("Крупный рогатый скот")) {
+            return new Animal.AnimalBuilder()
+                    .setAnimalKind(kind)
+                    .setMarkerType(kind)
+                    .setMarkerPlace()
+                    .setIdentificationNumber()
+                    .setFirstMarkerDate()
+                    .setRegistrationGround()
+                    .setSuit()
+                    .setBirthDate()
+                    .setGender()
+                    .setNickName()
+                    .setKeepType()
+                    .setKeepPlace()
+                    .setProductDirection()
+                    .build();
+        }
+        if (kind.equals("Куры")) {
+            return new Animal.AnimalBuilder()
+                    .setAnimalKind(kind)
+                    .setMarkerType(kind)
+                    .setMarkerPlace()
+                    .setIdentificationNumber()
+                    .setFirstMarkerDate()
+                    .setRegistrationGround()
+                    .setSuit()
+                    .setBirthDate()
+                    .setGender()
+                    .setNickName()
+                    .setKeepType()
+                    .setKeepPlace()
+                    .setProductDirection()
+                    .build();
+        }
+//        if (kind.equals("Пчёлы")) {
+//            return new Animal.AnimalBuilder()
+//                    .setAnimalKind(kind)
+//                    .setMarkerType(kind)
+//                    .setMarkerPlace()
+//                    .setIdentificationNumber()
+//                    .setFirstMarkerDate()
+//                    .setRegistrationGround()
+//                    .setSuit()
+//                    .setBirthDate()
+//                    .setKeepType()
+//                    .setKeepPlace()
+//                    .setProductDirection()
+//                    .build();
+//        }
+        else {
+            return null;
         }
     }
 }

@@ -1,5 +1,7 @@
 package Pages;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.DisplayName;
 
@@ -11,9 +13,9 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class AuthPage {
     // Авторизация
-    private static SelenideElement email = $("input[name=email]");
-    private static SelenideElement password = $("input[type=password]");
-    private static SelenideElement authButton = $x("//button[contains(text(),'Авторизация')]");
+    private static SelenideElement email = Selenide.$("input[name=email]");
+    private static SelenideElement password = Selenide.$("input[type=password]");
+    private static SelenideElement authButton = Selenide.$x("//button[contains(text(),'Авторизация')]");
 
     public AuthPage(){
 
@@ -27,7 +29,7 @@ public class AuthPage {
     }
     @DisplayName("Авторизация Ветеринарный врач")
     public static HomePage autoVet() {
-        email.shouldBe(visible, Duration.ofSeconds(15));
+        email.shouldBe(Condition.visible, Duration.ofSeconds(15));
         email.setValue("cheh@p.v");
         password.setValue("33221100");
         authButton.click();
@@ -35,7 +37,7 @@ public class AuthPage {
     }
     @DisplayName("Авторизация суперадмин")
     public static HomePage autoSuperAdmin() {
-        email.shouldBe(visible, Duration.ofSeconds(15));
+        email.shouldBe(Condition.visible, Duration.ofSeconds(15));
         email.setValue("admin@regagro.net");
         password.setValue("44qsaTeF@p8I");
         authButton.click();

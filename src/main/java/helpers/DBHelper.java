@@ -29,25 +29,6 @@ public class DBHelper {
         }
     }
 
-    public boolean isTableNotEmpty(String host) {
-        try {
-            var query = "SELECT COUNT(*) FROM animals";
-            var conn = getConnection(host);
-            var statement = conn.createStatement();
-            var resultSet = statement.executeQuery(query);
-
-            if (resultSet.next()) {
-                var count = resultSet.getInt(1);
-                return count > 0;
-            }
-
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     @DisplayName("Получить список значений типа String одного столбца")
     public List<String> getColumnData(String columnName, String table) {
         List<String> data = new ArrayList<>();
