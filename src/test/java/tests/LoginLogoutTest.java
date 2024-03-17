@@ -10,11 +10,14 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoginLogoutTest {
     @BeforeAll
     static void setUpAll() {
@@ -31,14 +34,22 @@ public class LoginLogoutTest {
         SelenideLogger.removeListener("allure");
         closeWebDriver();
     }
-    @DisplayName("RAT-1964 Выход из профиля пользователя и RAT-1966 Авторизация с валидными данными")
+
+    @Order(1)
+    @DisplayName("RAT-1964 Выход из профиля пользователя")
     @Test
-    void getSuccessLogoutAndLogin() {
+    void getSuccessLogout() {
         BasePage basePage = new BasePage();
         basePage.logout();
         AuthPage authPage = new AuthPage();
         Assertions.assertTrue(authPage.isOnAuthPage());
+    }
 
+    @Order(2)
+    @DisplayName("RAT-1966 Авторизация с валидными данными")
+    @Test
+    void getSuccessLogin() {
+        AuthPage authPage = new AuthPage();
         authPage.autoVet();
         HomePage homePage = new HomePage();
         Assertions.assertTrue(homePage.isOnHomePage(), "Пользователь не авторизован");

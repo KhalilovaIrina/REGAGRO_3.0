@@ -62,11 +62,11 @@ public class AddEnterprisePage {
     }
 
     public EnterpriseCardPage getNewEnterprise
-            (Enterprise enterprise) {
+            (Enterprise enterprise, String nameOfEnterprise) {
         chooseOwnerButton.should(Condition.enabled).click();
         OwnerModalWindow ownerModalWindow = new OwnerModalWindow();
         ownerModalWindow.getOwner(enterprise);
-        nameOfEnterpriseField.setValue(enterprise.getName());
+        nameOfEnterpriseField.setValue(nameOfEnterprise);
         typeOfEnterprise.should(Condition.enabled).click();
         input.setValue(enterprise.getTypeOfEnterprise()).pressEnter();
         districtSelection.should(Condition.enabled).click();

@@ -24,7 +24,6 @@ public class Enterprise {
     private String path = pathAddress + uuid + "/children?levels=";
 
     private final String ownerInn = "7736280231";
-    private final String name = dataGenerator.getEnterpriseName();
     private final String typeOfEnterprise = setEnterpriseType();
     private final String region = "Орловская";
     private final String district = setDistrict();
@@ -66,7 +65,6 @@ public class Enterprise {
             return null;
         }
     }
-
     private String setEnterpriseType() {
         int legalFormId = 1;
         List<String> enterpriseTypes = dbHelper.values(

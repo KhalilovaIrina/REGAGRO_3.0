@@ -14,6 +14,7 @@ public class EnterpriseCardPage {
     private final SelenideElement deleteEnterpriseButton = $x("//a[contains(text(),'Удалить объект')]");
     private final SelenideElement okButton = $x("//button[contains(text(),'Да')]");
     private final SelenideElement messageDelete = $x("//h4[contains(text(),'Удалить объект')]");
+    private final SelenideElement nameOfEnterprise = $x("//div[@class='row justify-content-between']/child::div[1]");
 
     public EnterpriseCardPage() {
         Selenide.sleep(3000);
@@ -25,7 +26,9 @@ public class EnterpriseCardPage {
         String xpathLocatorName = String.format("//div[@class='col-auto'][contains(text(), '%s')]", enterpriseName);
         return Selenide.$x(xpathLocatorName).getText();
     }
-
+    public String getNameOfEnterprise() {
+        return nameOfEnterprise.getText();
+    }
     public void editInnOfOwner(String newNumber) {
         actionsButton.should(Condition.enabled).click();
         actionsMenu.should(Condition.visible);
