@@ -37,11 +37,11 @@ public class SearchAnimalByNumberTest {
         BasePage basePage = new BasePage();
         DBHelper dbHelper = new DBHelper();
 
-        String randomAnimalNumber = dbHelper.getRandomAnimalNumber();
+        String randomAnimalNumber = dbHelper.getRandomAnimalNumberFromDB();
         AnimalPassportPage animalPassportPage = basePage.getFoundAnimal(randomAnimalNumber);
         Assertions.assertEquals(animalPassportPage.getIdentificationNumber(), randomAnimalNumber);
 
-        String randomAnimalGroupNumber = dbHelper.getRandomAnimalGroupNumber();
+        String randomAnimalGroupNumber = dbHelper.getRandomAnimalGroupNumberFromDB();
         AnimalGroupPassportPage animalGroupPassportPage = basePage.getFoundAnimalGroup(randomAnimalGroupNumber);
         Assertions.assertEquals(animalGroupPassportPage.getIdentificationNumber(), randomAnimalGroupNumber);
     }

@@ -37,7 +37,7 @@ public class RegistrationIndividualAnimal_KRS_Test {
     }
     @DisplayName("RAT-1948 Регистрация животного")
     @Test
-    void regIndividualAnimals() throws SQLException {
+    void regIndividualAnimals() {
         DBHelper dbHelper = new DBHelper();
         Animal krs = Animal.createAnimal("Крупный рогатый скот");
 

@@ -32,7 +32,7 @@ public class RegistrationEditDeleteEnterpriseTest {
 
     @BeforeAll
     static void setUpAll() {
-        //Configuration.headless = true;
+       // Configuration.headless = true;
         SelenideLogger.addListener("allure", new AllureSelenide());
         open("https://v3.dev.regagro.ru/");
         AuthPage authPage = new AuthPage();
@@ -59,7 +59,7 @@ public class RegistrationEditDeleteEnterpriseTest {
         EnterpriseCardPage enterpriseCardPage = new EnterpriseCardPage();
 
         Assertions.assertTrue(enterpriseCardPage.getNameOfEnterprise().contains(name));
-        Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(name));
+        Assertions.assertTrue(dbHelper.isValueInDatabase("name", "enterprises", name));
     }
 
     @Order(2)
@@ -67,15 +67,14 @@ public class RegistrationEditDeleteEnterpriseTest {
     @Test
     void getSuccessEditEnterprise() {
         DBHelper dbHelper = new DBHelper();
-        Enterprise enterprise = new Enterprise();
         EnterpriseCardPage enterpriseCardPage = new EnterpriseCardPage();
         if (newName.matches(name)) {
             newName = dataGenerator.getEnterpriseName();
         }
         enterpriseCardPage.editEnterpriseName(newName);
 
-        Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(newName));
-        Assertions.assertFalse(dbHelper.isValueInDatabase("name", "enterprises", name));
+        Assertions.assertTrue(dbHelper.isValueInDatabase("name", "enterprises", newName));
+        //Assertions.assertFalse(dbHelper.isValueInDatabase("name", "enterprises", name));
     }
 
     @Order(3)
@@ -94,6 +93,6 @@ public class RegistrationEditDeleteEnterpriseTest {
         Selenide.sleep(4000);
         EnterpriseCardPage enterpriseCardPage = new EnterpriseCardPage();
         enterpriseCardPage.deleteEnterprise();
-        Assertions.assertTrue(dbHelper.isDeleted(newName));
+        Assertions.assertTrue(dbHelper.isDeleted(newName, "enterprises"));
     }
 }

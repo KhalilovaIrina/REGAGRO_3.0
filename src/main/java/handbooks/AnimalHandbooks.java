@@ -49,7 +49,8 @@ public class AnimalHandbooks {
 
     // Получить рандомное основание для регистрации
     public String getRandomRegistrationGround() {
-        List<String> grounds = dbHelper.getColumnData("name", "registration_grounds");
+//        List<String> grounds = dbHelper.getColumnData("name", "registration_grounds");
+        List<String> grounds = dbHelper.values("SELECT * FROM registration_grounds", "regagro_3_0_handbooks", "name");
         List<String> testGrounds = grounds.stream()
                 .filter(newGrounds -> !newGrounds.matches("Ввоз в РФ"))
                 .collect(Collectors.toList());
@@ -59,7 +60,8 @@ public class AnimalHandbooks {
     // Получить рандомную масть у определенного вида животного
     public String getRandomSuit(String kind) {
         int kindId = getKindId(kind);
-        List<String> suits = dbHelper.getValuesOfConditions("name", "kind_id", "suits", kindId);
+        String query = "SELECT * FROM suits WHERE kind_id = " + kindId;
+        List<String> suits = dbHelper.values(query,"regagro_3_0_handbooks", "name");
         return suits.get(random.nextInt(suits.size()));
     }
 
@@ -75,18 +77,22 @@ public class AnimalHandbooks {
     // Получить рандомное место содержания у определенного вида животного
     public String getRandomKeepPlace(String kind) {
         int kindId = getKindId(kind);
-        List<Integer> keepPlacesIds = dbHelper.getIntValuesOfConditions("keep_place_id", "kind_id", "kind_keep_places", kindId);
+        String query1 = "SELECT * FROM kind_keep_places WHERE kind_id = " + kindId;
+        List<Integer> keepPlacesIds = dbHelper.valuesInt(query1, "regagro_3_0_handbooks", "keep_place_id");
         int keepPlaceId = keepPlacesIds.get(random.nextInt(keepPlacesIds.size()));
-        List<String> keepPlaces = dbHelper.getValuesOfConditions("name", "id", "keep_places", keepPlaceId);
+        String query2 = "SELECT * FROM keep_places WHERE id = " + keepPlaceId;
+        List<String> keepPlaces = dbHelper.values(query2, "regagro_3_0_handbooks", "name");
         return keepPlaces.get(0);
     }
 
     // Получить рандомное направление продуктивности у определенного вида животного
     public String getRandomProductDirection(String kind) {
         int kindId = getKindId(kind);
-        List<Integer> productDirectionIds = dbHelper.getIntValuesOfConditions("product_direction_id", "kind_id", "kind_product_directions", kindId);
+        String query1 = "SELECT * FROM kind_product_directions WHERE kind_id = " + kindId;
+        List<Integer> productDirectionIds = dbHelper.valuesInt(query1, "regagro_3_0_handbooks", "product_direction_id");
         int productDirectionId = productDirectionIds.get(random.nextInt(productDirectionIds.size()));
-        List<String> productDirections = dbHelper.getValuesOfConditions("name", "id", "product_directions", productDirectionId);
+        String query2 = "SELECT * FROM product_directions WHERE id = " + productDirectionId;
+        List<String> productDirections = dbHelper.values(query2, "regagro_3_0_handbooks", "name");
         return productDirections.get(0);
     }
 
