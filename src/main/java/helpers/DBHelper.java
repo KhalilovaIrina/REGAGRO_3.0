@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class DBHelper {
     Random random = new Random();
@@ -136,11 +135,7 @@ public class DBHelper {
             ResultSet resultSet = statement.executeQuery
                     ("SELECT deleted_at FROM " + table + " WHERE name = '" + name + "'");
 
-            if (resultSet.next()) {
-                return true;
-            } else {
-                return false;
-            }
+            return resultSet.next();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

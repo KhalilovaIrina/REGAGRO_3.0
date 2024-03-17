@@ -32,7 +32,7 @@ public class RegistrationEditDeleteEnterpriseTest {
 
     @BeforeAll
     static void setUpAll() {
-       // Configuration.headless = true;
+        Configuration.headless = true;
         SelenideLogger.addListener("allure", new AllureSelenide());
         open("https://v3.dev.regagro.ru/");
         AuthPage authPage = new AuthPage();
