@@ -10,7 +10,6 @@ import entities.Animal;
 import helpers.DBHelper;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -24,23 +23,17 @@ import static com.codeborne.selenide.Selenide.open;
 public class RegistrationIndividualAnimal_KRS_Test {
     @BeforeAll
     static void setUpAll() {
-        //Configuration.headless = true;
+        Configuration.headless = true;
         SelenideLogger.addListener("allure", new AllureSelenide());
         open("https://v3.dev.regagro.ru/");
-        AuthPage.autoVet();
-        Configuration.holdBrowserOpen = true;
+        AuthPage authPage = new AuthPage();
+        authPage.autoVet();
     }
 
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
         closeWebDriver();
-    }
-
-    @AfterEach
-    public void getHomePage() {
-        BasePage basePage = new BasePage();
-        basePage.getHomePage();
     }
     @DisplayName("RAT-1948 Регистрация животного")
     @Test
@@ -61,7 +54,7 @@ public class RegistrationIndividualAnimal_KRS_Test {
         Assertions.assertEquals(krs.getIdentificationNumber(), animalPassportPage.getIdentificationNumber(),
                 "Идентификационный номер, указанный при регистрации, не совпадает с номером в паспорте животного");
 
-        Assertions.assertTrue(dbHelper.isAnimalInDatabase(krs.getIdentificationNumber()),
+        Assertions.assertTrue(dbHelper.isValueInDatabase("number", "animals", krs.getIdentificationNumber()),
                 "Животное отсутствует в базе данных");
     }
 }

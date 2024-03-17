@@ -27,6 +27,7 @@ public class Animal {
     public static class AnimalBuilder {
         private final Animal animal;
         AnimalHandbooks handbooks = new AnimalHandbooks();
+        DataGenerator dataGenerator = new DataGenerator();
 
         public AnimalBuilder() {
             this.animal = new Animal();
@@ -48,12 +49,12 @@ public class Animal {
 
         public AnimalBuilder setIdentificationNumber() {
             if (animal.markerType.matches("Чип")) {
-                animal.identificationNumber = DataGenerator.getNumber(15);
+                animal.identificationNumber = dataGenerator.getNumber(15);
             }
             if (animal.markerType.matches("Табло")) {
-                animal.identificationNumber = DataGenerator.getNumberWithFirst("2", 8);
+                animal.identificationNumber = dataGenerator.getNumberWithFirst("2", 8);
             } else {
-                animal.identificationNumber = DataGenerator.getNumber(15);
+                animal.identificationNumber = dataGenerator.getNumber(15);
             }
             return this;
         }
@@ -64,7 +65,7 @@ public class Animal {
         }
 
         public AnimalBuilder setFirstMarkerDate() {
-            animal.firstMarkerDate = DataGenerator.getLocalDate();
+            animal.firstMarkerDate = dataGenerator.getLocalDate();
             return this;
         }
 
@@ -80,9 +81,9 @@ public class Animal {
 
         public AnimalBuilder setBirthDate() {
             if (animal.registrationGround.matches("Рождение животного")) {
-                animal.birthDate = DataGenerator.getPastDateForBirthGround();
+                animal.birthDate = dataGenerator.getPastDateForBirthGround();
             } else {
-                animal.birthDate = DataGenerator.getPastDate();
+                animal.birthDate = dataGenerator.getPastDate();
             }
             return this;
         }
@@ -93,7 +94,7 @@ public class Animal {
         }
 
         public AnimalBuilder setNickName() {
-            animal.nickName = DataGenerator.getNickname();
+            animal.nickName = dataGenerator.getNickname();
             return this;
         }
 

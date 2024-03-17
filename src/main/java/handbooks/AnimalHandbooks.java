@@ -43,7 +43,7 @@ public class AnimalHandbooks {
                         "JOIN kind_marker_places ON marker_places.id = kind_marker_places.marker_place_id\n" +
                         "JOIN kinds ON kinds.id = kind_marker_places.kind_id\n" +
                         "WHERE kinds.name = " + "'" + kind + "'" + " AND kind_marker_places.marker_type_id = "
-                        + markerTypeId + " AND marker_places.deleted_at IS NULL", "handbooks", "name");
+                        + markerTypeId + " AND marker_places.deleted_at IS NULL", "regagro_3_0_handbooks", "name");
         return markerPlaces.get(random.nextInt(markerPlaces.size()));
     }
 
@@ -68,7 +68,7 @@ public class AnimalHandbooks {
         List<String> keepTypes = dbHelper.values("SELECT keep_types.name FROM keep_types\n" +
                 "JOIN kind_keep_types ON keep_types.id = kind_keep_types.keep_type_id \n" +
                 "JOIN kinds ON kinds.id = kind_keep_types.kind_id\n" +
-                "WHERE kinds.name = " + "'" + kind + "'" + " AND keep_types.deleted_at IS NULL", "handbooks", "name");
+                "WHERE kinds.name = " + "'" + kind + "'" + " AND keep_types.deleted_at IS NULL", "regagro_3_0_handbooks", "name");
         return keepTypes.get(random.nextInt(keepTypes.size()));
     }
 

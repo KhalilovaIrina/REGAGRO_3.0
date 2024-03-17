@@ -3,7 +3,6 @@ package Pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import dataGenerator.DataGenerator;
 import entities.Animal;
 import entities.AnimalGroup;
 
@@ -21,9 +20,6 @@ public class AddAnimalPage {
     private final SelenideElement description = $("div[class=item-descritpion]");
     private final SelenideElement chooseButton = $x("//button[contains(text(),'Выбрать')]");
     private final SelenideElement animalKind = $x("//div[contains(text(),'Вид животного')]/..//span[contains(@class,'select2-container--bootstrap-5')]");
-    private final SelenideElement pig = $x("//li[@data-select2-id='select2-data-134-8jd3']");
-    private final SelenideElement bees = $x("//li[@data-select2-id='select2-data-136-dzff']");
-    private final SelenideElement krs = $x("//li[@data-select2-id='select2-data-130-ag22']");
     private final SelenideElement input = $x("//input[@class='select2-search__field']");
     private final SelenideElement identificationNumberField = $x("//div/input[@placeholder='Введите номер']");
     private final SelenideElement markerPlacesSelection = $x("//select[@name='marker_place_id']/following-sibling::span[@dir='ltr']");
@@ -57,62 +53,62 @@ public class AddAnimalPage {
 
     public void getActivateRegistrationChickens(Animal chicken) throws SQLException {
         // Выбор объекта
-        findObjectButton.click();
+        findObjectButton.should(Condition.enabled).click();
         innCheckbox.shouldBe(Condition.visible, Duration.ofSeconds(2));
-        innCheckbox.click();
+        innCheckbox.should(Condition.enabled).click();
         innField.setValue("0278039949");
-        findButtonModalWindow.click();
-        description.click();
-        chooseButton.click();
+        findButtonModalWindow.should(Condition.enabled).click();
+        description.should(Condition.enabled).click();
+        chooseButton.should(Condition.enabled).click();
 
         // Вид животного
-        animalKind.click();
+        animalKind.should(Condition.enabled).click();
         input.setValue(chicken.getKind()).pressEnter();
 
         // Идентификация
-        markerTypes.click();
+        markerTypes.should(Condition.enabled).click();
         input.setValue(chicken.getMarkerType()).pressEnter();
-        identificationNumberField.click();
+        identificationNumberField.should(Condition.enabled).click();
         identificationNumberField.setValue(chicken.getIdentificationNumber()).pressEnter();
-        markerPlacesSelection.click();
+        markerPlacesSelection.should(Condition.enabled).click();
         input.setValue(chicken.getMarkerPlace()).pressEnter();
 
         // Дата первичного маркирования
-        firstMarkerDate.click();
+        firstMarkerDate.should(Condition.enabled).click();
         firstMarkerDateInput.setValue(chicken.getFirstMarkerDate()).pressEnter();
 
         // Основание
-        foundation.click();
+        foundation.should(Condition.enabled).click();
         input.setValue(chicken.getRegistrationGround()).pressEnter();
 
         // Масть
-        suit.click();
+        suit.should(Condition.enabled).click();
         input.setValue(chicken.getSuit()).pressEnter();
 
         // Дата рождения
-        birthDate.click();
+        birthDate.should(Condition.enabled).click();
         birthDateInput.setValue(chicken.getBirthDate()).pressEnter();
         if (chicken.getGender().matches("Самка")) {
-            genderFemale.click();
-        } else genderMale.click();
+            genderFemale.should(Condition.enabled).click();
+        } else genderMale.should(Condition.enabled).click();
 
         // Кличка
         nickName.setValue(chicken.getNickName()).pressEnter();
 
         // Тип содержания
-        keepTypes.click();
+        keepTypes.should(Condition.enabled).click();
         input.setValue(chicken.getKeepType()).pressEnter();
 
         // Место содержания
-        keepPlaces.click();
+        keepPlaces.should(Condition.enabled).click();
         input.setValue(chicken.getKeepPlace()).pressEnter();
 
         // Направление продуктивности
-        productDirections.click();
+        productDirections.should(Condition.enabled).click();
         input.setValue(chicken.getProductDirection()).pressEnter();
 
         // Активация
-        activateButton.click();
+        activateButton.should(Condition.enabled).click();
         Selenide.sleep(2000);
     }
 
@@ -175,66 +171,66 @@ public class AddAnimalPage {
     public void getActivateRegistrationKRS(Animal krs) {
 
         // Выбор объекта
-        findObjectButton.click();
+        findObjectButton.should(Condition.enabled).click();
         innCheckbox.shouldBe(Condition.visible, Duration.ofSeconds(2));
-        innCheckbox.click();
+        innCheckbox.should(Condition.enabled).click();
         innField.setValue("0278039949");
-        findButtonModalWindow.click();
-        description.click();
-        chooseButton.click();
+        findButtonModalWindow.should(Condition.enabled).click();
+        description.should(Condition.enabled).click();
+        chooseButton.should(Condition.enabled).click();
 
         // Вид животного
-        animalKind.click();
+        animalKind.should(Condition.enabled).click();
         input.setValue(krs.getKind()).pressEnter();
 
         // Идентификация
-        markerTypes.click();
+        markerTypes.should(Condition.enabled).click();
         input.setValue(krs.getMarkerType()).pressEnter();
-        identificationNumberField.click();
+        identificationNumberField.should(Condition.enabled).click();
         identificationNumberField.setValue(krs.getIdentificationNumber()).pressEnter();
-        markerPlacesSelection.click();
+        markerPlacesSelection.should(Condition.enabled).click();
         Selenide.sleep(1500);
         input.setValue(krs.getMarkerPlace()).pressEnter();
 
         // Дата первичного маркирования
-        firstMarkerDate.click();
+        firstMarkerDate.should(Condition.enabled).click();
         firstMarkerDateInput.setValue(krs.getFirstMarkerDate()).pressEnter();
 
         // Основание
-        foundation.click();
+        foundation.should(Condition.enabled).click();
         input.setValue(krs.getRegistrationGround()).pressEnter();
 
         // Масть
-        suit.click();
+        suit.should(Condition.enabled).click();
         input.setValue(krs.getSuit()).pressEnter();
 
         // Дата рождения
-        birthDate.click();
+        birthDate.should(Condition.enabled).click();
         birthDateInput.setValue(krs.getBirthDate()).pressEnter();
         if (krs.getGender().matches("Самка")) {
-            genderFemale.click();
-        } else genderMale.click();
+            genderFemale.should(Condition.enabled).click();
+        } else genderMale.should(Condition.enabled).click();
 
         // Кличка
         nickName.setValue(krs.getNickName()).pressEnter();
 
         // Тип содержания
-        keepTypes.click();
+        keepTypes.should(Condition.enabled).click();
         Selenide.sleep(1500);
         input.setValue(krs.getKeepType()).pressEnter();
 
         // Место содержания
-        keepPlaces.click();
+        keepPlaces.should(Condition.enabled).click();
         input.setValue(krs.getKeepPlace());
         Selenide.sleep(1000);
         input.pressEnter();
 
         // Направление продуктивности
-        productDirections.click();
+        productDirections.should(Condition.enabled).click();
         input.setValue(krs.getProductDirection()).pressEnter();
 
         // Активация
-        activateButton.click();
+        activateButton.should(Condition.enabled).click();
         Selenide.sleep(2000);
     }
 
@@ -242,25 +238,25 @@ public class AddAnimalPage {
     public void getActivateRegistrationGroup(AnimalGroup pigs) {
 
         // Выбор объекта
-        findObjectButton.click();
+        findObjectButton.should(Condition.enabled).click();
         innCheckbox.shouldBe(Condition.visible, Duration.ofSeconds(2));
-        innCheckbox.click();
+        innCheckbox.should(Condition.enabled).click();
         innField.setValue("0278039949");
-        findButtonModalWindow.click();
-        description.click();
-        chooseButton.click();
+        findButtonModalWindow.should(Condition.enabled).click();
+        description.should(Condition.enabled).click();
+        chooseButton.should(Condition.enabled).click();
 
         // Вид животного
-        animalKind.click();
+        animalKind.should(Condition.enabled).click();
         input.setValue(pigs.getKind()).pressEnter();
 
         // Идентификация
-        markerTypes.click();
+        markerTypes.should(Condition.enabled).click();
         input.setValue(pigs.getMarkerType()).pressEnter();
-        identificationNumberField.click();
+        identificationNumberField.should(Condition.enabled).click();
         identificationNumberField.setValue(pigs.getIdentificationNumber()).pressEnter();
         Selenide.sleep(1500);
-        markerPlacesSelection.click();
+        markerPlacesSelection.should(Condition.enabled).click();
         input.setValue(pigs.getMarkerPlace()).pressEnter();
 
         // Дата первичного маркирования
@@ -268,15 +264,15 @@ public class AddAnimalPage {
         firstMarkerDateInput.setValue(pigs.getFirstMarkerDate()).pressEnter();
 
         // Основание
-        foundation.click();
+        foundation.should(Condition.enabled).click();
         input.setValue(pigs.getRegistrationGround()).pressEnter();
 
         // Диапазон дат рождения
 
-        birthDateFrom.click();
+        birthDateFrom.should(Condition.enabled).click();
         birthDateInput.setValue(pigs.getBirthDateFrom()).pressEnter();
 
-        birthDateBefore.click();
+        birthDateBefore.should(Condition.enabled).click();
         birthDateInput.setValue(pigs.getBirthDateBefore()).pressEnter();
 
         //Пол
@@ -296,19 +292,19 @@ public class AddAnimalPage {
         count.setValue(pigs.getCount());
 
         // Тип содержания
-        keepTypes.click();
+        keepTypes.should(Condition.enabled).click();
         input.setValue(pigs.getKeepType()).pressEnter();
 
         // Место содержания
-        keepPlaces.click();
+        keepPlaces.should(Condition.enabled).click();
         input.setValue(pigs.getKeepPlace()).pressEnter();
 
         // Направление продуктивности
-        productDirections.click();
+        productDirections.should(Condition.enabled).click();
         input.setValue(pigs.getProductDirection()).pressEnter();
 
         // Активация
-        activateButton.click();
+        activateButton.should(Condition.enabled).click();
         Selenide.sleep(2000);
     }
 
@@ -323,43 +319,39 @@ public class AddAnimalPage {
         chooseButton.click();
 
         // Вид животного
-        animalKind.click();
+        animalKind.should(Condition.enabled).click();
         input.setValue(bees.getKind()).pressEnter();
 
         // Идентификация
-        markerTypes.click();
+        markerTypes.should(Condition.enabled).click();
         input.setValue(bees.getMarkerType()).pressEnter();
-        identificationNumberField.click();
+        identificationNumberField.should(Condition.enabled).click();
         identificationNumberField.setValue(bees.getIdentificationNumber()).pressEnter();
-        markerPlacesSelection.click();
+        markerPlacesSelection.should(Condition.enabled).click();
         input.setValue(bees.getMarkerPlace()).pressEnter();
 
         // Дата первичного маркирования
-        firstMarkerDate.click();
+        firstMarkerDate.should(Condition.enabled).click();
         firstMarkerDateInput.setValue(bees.getFirstMarkerDate()).pressEnter();
 
         // Основание
-        foundation.click();
+        foundation.should(Condition.enabled).click();
         input.setValue(bees.getRegistrationGround()).pressEnter();
 
         // Дата заселения улья
-        birthDateFrom.click();
-        birthDateInput.setValue(bees.getBirthDateFrom()).pressEnter();
+        birthDateFrom.should(Condition.enabled).click();
+        birthDateInput.should(Condition.enabled).setValue(bees.getBirthDateFrom()).pressEnter();
 
         // Тип содержания
-        keepTypes.click();
+        keepTypes.should(Condition.enabled).click();
         input.setValue(bees.getKeepType()).pressEnter();
 
-        // Место содержания
-        keepPlaces.click();
-        input.setValue(bees.getKeepPlace()).pressEnter();
-
         // Направление продуктивности
-        productDirections.click();
+        productDirections.should(Condition.enabled).click();
         input.setValue(bees.getProductDirection()).pressEnter();
 
         // Активация
-        activateButton.click();
+        activateButton.should(Condition.enabled).click();
         Selenide.sleep(2000);
     }
 
@@ -395,12 +387,6 @@ public class AddAnimalPage {
 //        $x("//button[contains(., 'Добавить еще')]").click();
 //        getPartOfFields();
 //    }
-
-    public String getRandomNumber() {
-        return DataGenerator.getNumber(15);
-    }
-
-
 //    private void getPartOfFields() {
 //        // Идентификация
 //        if (!$("#addAnimalForm > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div > div.row.mb-3 > div:nth-child(2) > div > div:nth-child(1) > div.col > input").isDisplayed()) {

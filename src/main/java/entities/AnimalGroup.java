@@ -5,6 +5,7 @@ import handbooks.AnimalHandbooks;
 import lombok.Getter;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Getter
 public class AnimalGroup {
@@ -30,6 +31,7 @@ public class AnimalGroup {
     public static class AnimalGroupBuilder {
         private final AnimalGroup animalGroup;
         AnimalHandbooks handbooks = new AnimalHandbooks();
+        DataGenerator dataGenerator = new DataGenerator();
 
         public AnimalGroupBuilder() {
             this.animalGroup = new AnimalGroup();
@@ -51,12 +53,12 @@ public class AnimalGroup {
 
         public AnimalGroup.AnimalGroupBuilder setIdentificationNumber() {
             if (animalGroup.markerType.matches("Чип")) {
-                animalGroup.identificationNumber = DataGenerator.getNumber(15);
+                animalGroup.identificationNumber = dataGenerator.getNumber(15);
             }
             if (animalGroup.markerType.matches("Табло")) {
-                animalGroup.identificationNumber = DataGenerator.getNumberWithFirst("2", 8);
+                animalGroup.identificationNumber = dataGenerator.getNumberWithFirst("2", 8);
             } else {
-                animalGroup.identificationNumber = DataGenerator.getNumber(15);
+                animalGroup.identificationNumber = dataGenerator.getNumber(15);
             }
             return this;
         }
@@ -67,7 +69,7 @@ public class AnimalGroup {
         }
 
         public AnimalGroup.AnimalGroupBuilder setFirstMarkerDate() {
-            animalGroup.firstMarkerDate = DataGenerator.getLocalDate();
+            animalGroup.firstMarkerDate = dataGenerator.getLocalDate();
             return this;
         }
 
@@ -78,10 +80,11 @@ public class AnimalGroup {
 
         public AnimalGroup.AnimalGroupBuilder setBirthDateRange() {
             if (animalGroup.kind.matches("Пчёлы")) {
-                animalGroup.birthDateFrom = DataGenerator.getDateRange(animalGroup.registrationGround).get(0);
+                animalGroup.birthDateFrom = dataGenerator.getDateRange(animalGroup.registrationGround).get(0);
             } else {
-                animalGroup.birthDateFrom = DataGenerator.getDateRange(animalGroup.registrationGround).get(0);
-                animalGroup.birthDateBefore = DataGenerator.getDateRange(animalGroup.registrationGround).get(1);
+                List<String> dateRange = dataGenerator.getDateRange(animalGroup.registrationGround);
+                animalGroup.birthDateFrom = dateRange.get(0);
+                animalGroup.birthDateBefore = dateRange.get(1);
             }
             return this;
         }
@@ -92,7 +95,7 @@ public class AnimalGroup {
         }
 
         public AnimalGroup.AnimalGroupBuilder setCount() {
-            animalGroup.count = DataGenerator.getNumber(2);
+            animalGroup.count = dataGenerator.getNumberRange(2,20);
             return this;
         }
 
@@ -100,7 +103,7 @@ public class AnimalGroup {
             if (animalGroup.gender.matches("Самцы")) {
                 animalGroup.countOfMale = animalGroup.count;
             } else
-                animalGroup.countOfMale = DataGenerator.getNumber(0, Integer.parseInt(animalGroup.count));
+                animalGroup.countOfMale = dataGenerator.getNumberRange(1, Integer.parseInt(animalGroup.count));
             return this;
         }
 

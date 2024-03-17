@@ -15,8 +15,14 @@ public class RequestSpecificationCreator {
 
     private static Map<String, String> initializeAuthScript() {
         Map<String, String> authScript = new HashMap<>();
-        authScript.put("Cookie", "laravel_session=eyJpdiI6Iko1amVCN2hxalJNMmY2eEk1Z29iSkE9PSIsInZhbHVlIjoiK0dqK3I3MmJqalFDbSsrWDRTL1hnaTJjN1psM2Vpc2NRZ2xEK1ZNL2x3WitBdW9BWG1JaHRNVVBkeUYvUjh4N014bTFSb0dxeTgybGlRV3V5Q09rN3BadXhvWFU2TEU1U0I5Ump6UndiZmV5cFVjcmtVYVdGQnhxdjJ1WWhQRXIiLCJtYWMiOiIzMWNkZjA4OTNlOGI5YzE4YTJkNjdkN2YwMDE0NTJmZmU4YzM1NWZmYmM4N2VhNDBiZmNlMWViOGUzNTJmNzIxIiwidGFnIjoiIn0%3D");
-        authScript.put("X-XSRF-TOKEN", "eyJpdiI6IjY3VGRDbVErRWNxNk5obnpJVUNNbnc9PSIsInZhbHVlIjoiYVBIam1CQWZQRWNGdFgvSU5LWHJIdzQydkhlNzZyRXp2R01lZjFkblgxVURNaC9XT2pCT3lWOHQ5aU03OXJHaEZTY0xjZ2FaMW5pLzVqVWEwV2JYaTRHZnNFM1oxYzBPZjN5QitOV0VUdEhCOUtrWmxyekRETmhtL1lYOHZTSXoiLCJtYWMiOiJiZGRlOTQ1ZjYwNDllYzZjNDU4MTZjNjk3NmIzMjJmMzExN2JkOTQzYjk1YWMyZWNjMzAwYTgyZDI4NjJkY2NhIiwidGFnIjoiIn0%3D");
+        authScript.put("Cookie", "laravel_session=eyJpdiI6IlF1Slg3c09iZW9wUGxBNXFQUGszTVE9PSIsInZhbHVlIjoibUlNbXJ4OXVmS" +
+                "TdvNUd5elZtL0lRWHFzeE5aaHJDK2dXZkE3QVhBK1duUm9oVE5ESUFoMVRzbnoxMTRUU2NiTWltK3JlRVFpRU03NGEydi94SXhQR05" +
+                "jenlld2txbUVJeXRNSERRMHRmbEdaZW1iOVBvTDNpZ1hsUXd2N2N2dzMiLCJtYWMiOiI2MTU4MjE3ZjM3ZWNiZDE2YWI5M2EyODlmY" +
+                "2FhZmUwYTg5ZmYwMTg2NjJjOGEwZTBkM2IyMTgxMTE3NTM1MjUzIiwidGFnIjoiIn0%3D");
+        authScript.put("X-XSRF-TOKEN", "eyJpdiI6ImFiR1ZKZ1Yvb2RqT2FObXhVRXh6bUE9PSIsInZhbHVlIjoicjJ0TllHQ2MzM2h4YjBjWE5" +
+                "jTkNkLzBHUGxQRE5LdVVqdjlUSzdMa2x5VnpIa2pkR2FxWHJVWDJYUGFyNjl6WHhPdVlxOGZqMU5yd2Job0NhUStVQmttYyt2QkNzb" +
+                "nlSWEd6NUxYZW1FaVQrTklGVmFzaDRhaG9RWVl5STFrU3IiLCJtYWMiOiI0MTNhMTIyYzg0ZjM3MmE0NDA2NDExZjQxNTE4MGExOGI" +
+                "wMTk2YTA4YWEzNjE2NDkxZTgzM2U2MTcyODg2N2NjIiwidGFnIjoiIn0%3D");
         return authScript;
     }
 

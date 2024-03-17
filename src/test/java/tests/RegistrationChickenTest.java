@@ -10,7 +10,6 @@ import entities.Animal;
 import helpers.DBHelper;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -27,20 +26,14 @@ public class RegistrationChickenTest {
         Configuration.headless = true;
         SelenideLogger.addListener("allure", new AllureSelenide());
         open("https://v3.dev.regagro.ru/");
-        AuthPage.autoVet();
-        //Configuration.holdBrowserOpen = true;
+        AuthPage authPage = new AuthPage();
+        authPage.autoVet();
     }
 
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
         closeWebDriver();
-    }
-
-    @AfterEach
-    public void getHomePage() {
-        BasePage basePage = new BasePage();
-        basePage.getHomePage();
     }
     @DisplayName("RAT-2768 Регистрация птиц")
     @Test
@@ -61,7 +54,7 @@ public class RegistrationChickenTest {
         Assertions.assertEquals(chicken.getIdentificationNumber(), animalPassportPage.getIdentificationNumber(),
                 "Идентификационный номер, указанный при регистрации, не совпадает с номером в паспорте животного");
 
-        Assertions.assertTrue(dbHelper.isAnimalInDatabase(chicken.getIdentificationNumber()),
+        Assertions.assertTrue(dbHelper.isValueInDatabase("number", "animals", chicken.getIdentificationNumber()),
                 "Животное отсутствует в базе данных");
     }
 }

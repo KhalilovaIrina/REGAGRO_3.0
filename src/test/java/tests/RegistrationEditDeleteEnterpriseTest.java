@@ -13,7 +13,6 @@ import entities.Enterprise;
 import helpers.DBHelper;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -23,25 +22,20 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 
 public class RegistrationEditDeleteEnterpriseTest {
+    DataGenerator dataGenerator = new DataGenerator();
     @BeforeAll
     static void setUpAll() {
         Configuration.headless = true;
         SelenideLogger.addListener("allure", new AllureSelenide());
         open("https://v3.dev.regagro.ru/");
-        AuthPage.autoVet();
-        //Configuration.holdBrowserOpen = true;
+        AuthPage authPage = new AuthPage();
+        authPage.autoVet();
     }
 
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
         closeWebDriver();
-    }
-
-    @AfterEach
-    public void getHomePage() {
-        BasePage basePage = new BasePage();
-        basePage.getHomePage();
     }
     @DisplayName("RAT-2669 Регистрация объекта," +
             "RAT-2712 Редактирование объекта," +
@@ -61,17 +55,20 @@ public class RegistrationEditDeleteEnterpriseTest {
         Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(enterprise.getName()));
 
         // Редактирование объекта
-        String newName = DataGenerator.getEnterpriseName();
+        String oldName = enterprise.getName();
+        String newName = dataGenerator.getEnterpriseName();
         if (newName.matches(enterprise.getName())) {
-            DataGenerator.getEnterpriseName();
+            dataGenerator.getEnterpriseName();
         }
         enterpriseCardPage.editEnterpriseName(newName);
         Assertions.assertTrue(dbHelper.isEnterpriseInDatabase(newName));
+        Assertions.assertFalse(dbHelper.isValueInDatabase("name", "enterprises", oldName));
 
         // Удаление объекта
         Selenide.sleep(3000);
         basePage.logout();
-        AuthPage.authSuperAdmin();
+        AuthPage authPage = new AuthPage();
+        authPage.authSuperAdmin();
         basePage.getEnterpriseList();
         EnterpriseList enterpriseList = new EnterpriseList();
         enterpriseList.getFindEnterprisePage(newName);

@@ -9,116 +9,81 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class AddEnterprisePage {
-    private final SelenideElement heading = Selenide.$x("//h2[text()='Регистрация поднадзорного объекта']");
-    private final SelenideElement chooseOwnerButton = Selenide.$x("//button[contains(text(),'Выбрать владельца')]");
-    private final SelenideElement modalWindowFindOwner = Selenide.$x("//h4[contains(text(),'Поиск владельца в системе Regagro')]");
-    private final SelenideElement innField = Selenide.$x("//small[contains(text(), 'ИНН')]/following-sibling::input");
-    private final SelenideElement findButton = Selenide.$x("//button[contains(text(),'Найти')]");
-    private final SelenideElement registrationOwnerFromCerber = Selenide.$x("//button[contains(text(),'Регистрация владельца из Цербер')]");
-    private final SelenideElement registrationOwner = Selenide.$x("//button[contains(text(),'Регистрация неверифицированного владельца')]");
-    private final SelenideElement closeButton = Selenide.$x("//h4[contains(text(), 'Поиск владельца')]/following-sibling::button");
-    private final SelenideElement backToLookOutButton = Selenide.$x("//button[contains(text(),'Вернуться к поиску')]");
-    private final SelenideElement findItem = Selenide.$x("//a[@class='search-results-item']");
-    private final SelenideElement chooseButton = Selenide.$x("//button[contains(text(),'Выбрать')]");
-    private final SelenideElement infoAboutEnterprise = Selenide.$x("//button[contains(text(),'Информация об объекте')]");
-    private final SelenideElement nameOfEnterpriseField = Selenide.$x("//textarea[@name='name']");
-    private final SelenideElement typeOfEnterprise = Selenide.$x("//select[@name='enterprise_type_id']/following-sibling::span/span/span[@aria-controls='select2--container']");
-    private final SelenideElement typeResult = Selenide.$("#select2--results > li:nth-child(5) > ul > li:nth-child(1)");
-    private final SelenideElement input = Selenide.$x("/html/body/span/span/span[1]/input");
-    private final SelenideElement districtSelection = Selenide.$x("//select[@name='district_code']/following-sibling::span/span/span[@aria-controls='select2--container']");
-    private final SelenideElement citySelection = Selenide.$x("//select[@name='locality_code']/following-sibling::span/span/span[@aria-controls='select2--container']");
-    private final SelenideElement streetSelection = Selenide.$x("//select[@name='street_code']/following-sibling::span/span/span[@aria-controls='select2--container']");
-    private final SelenideElement houseNumberDiv = Selenide.$x("//div[contains(text(),'Дом')]/..//div[@class='col-6 mb-3 form-group pb-3']//input[@class='form-control']");
-    private final SelenideElement houseNumber = Selenide.$x("//div[contains(text(),'Дом')]/..//input");
-    //  private SelenideElement serviceAreaSelection = $("#service_area_id");
-    private final SelenideElement serviceAreaSelection = Selenide.$x("//select[@name='service_area_id']/following::span[@aria-labelledby='select2--container']");
+    private final SelenideElement chooseOwnerButton = $x("//button[contains(text(),'Выбрать владельца')]");private final SelenideElement innField = Selenide.$x("//small[contains(text(), 'ИНН')]/following-sibling::input");
+    private final SelenideElement findButton = $x("//button[contains(text(),'Найти')]");
+    private final SelenideElement registrationOwnerFromCerber = $x("//button[contains(text(),'Регистрация владельца из Цербер')]");
+    private final SelenideElement registrationOwner = $x("//button[contains(text(),'Регистрация неверифицированного владельца')]");
+    private final SelenideElement closeButton = $x("//h4[contains(text(), 'Поиск владельца')]/following-sibling::button");
+    private final SelenideElement nameOfEnterpriseField = $x("//textarea[@name='name']");
+    private final SelenideElement typeOfEnterprise = $x("//select[@name='enterprise_type_id']/following-sibling::span/span/span[@aria-controls='select2--container']");
+    private final SelenideElement typeResult = $("#select2--results > li:nth-child(5) > ul > li:nth-child(1)");
+    private final SelenideElement input = $x("/html/body/span/span/span[1]/input");
+    private final SelenideElement districtSelection = $x("//select[@name='district_code']/following-sibling::span/span/span[@aria-controls='select2--container']");
+    private final SelenideElement citySelection = $x("//select[@name='locality_code']/following-sibling::span/span/span[@aria-controls='select2--container']");
+    private final SelenideElement streetSelection = $x("//select[@name='street_code']/following-sibling::span/span/span[@aria-controls='select2--container']");
+    private final SelenideElement houseNumberDiv = $x("//div[contains(text(),'Дом')]/..//div[@class='col-6 mb-3 form-group pb-3']//input[@class='form-control']");
+   private final SelenideElement serviceAreaSelection = $x("//select[@name='service_area_id']/following::span[@aria-labelledby='select2--container']");
+    private final SelenideElement activateRegistrationButton = $("#submitFormsBtn");
 
-    private final SelenideElement activateRegistrationButton = Selenide.$("#submitFormsBtn");
-    private final SelenideElement innOwnersCard = Selenide.$x("//div[contains(text(),'ИНН')]/following-sibling::div[@data-v-1186336b]");
-    private final SelenideElement saveButton = Selenide.$x("//button[@id='submitFormsBtn']");
     public AddEnterprisePage() {
         Selenide.sleep(2000);
+        SelenideElement heading = $x("//h2[text()='Регистрация поднадзорного объекта']");
         heading.should(Condition.visible);
     }
-
-    public String getOwnersInn() {
-        return innOwnersCard.getText();
-    }
-
-    public void getNewOwnerLegalEntity(String inn) {
-        chooseOwnerButton.click();
+    public void getNewOwnerLegalEntity() {
+        chooseOwnerButton.should(Condition.enabled).click();
         innField.setValue("1");
-        findButton.click();
-        registrationOwnerFromCerber.click();
-        registrationOwner.click();
+        findButton.should(Condition.enabled).click();
+        registrationOwnerFromCerber.should(Condition.enabled).click();
+        registrationOwner.should(Condition.enabled).click();
         OwnerModalWindow ownerModalWindow = new OwnerModalWindow();
         if (ownerModalWindow.isOwnerNotRegistered()) {
-            ownerModalWindow.getNewOwnerLegalEntity(inn);
+            ownerModalWindow.getNewOwnerLegalEntity();
         }
-//        backToLookOutButton.click();
-//        innField.doubleClick();
-//        innField.setValue(ownerModalWindow.getInnNewOwner());
-//        findButton.click();
-//        findItem.click();
-        closeButton.click();
+        closeButton.should(Condition.enabled).click();
     }
 
     public EnterpriseCardPage getNewEnterpriseWithNewOwner
-            (String inn, String nameOwner, String nameOfEnterprise, String district, String city, String serviceArea) {
-        getNewOwnerLegalEntity(inn);
-        //infoAboutEnterprise.click();
+            (String nameOwner, String nameOfEnterprise, String district, String city, String serviceArea) {
+        getNewOwnerLegalEntity();
         nameOfEnterpriseField.setValue(nameOfEnterprise);
-        typeOfEnterprise.click();
-        typeResult.click();
+        typeOfEnterprise.should(Condition.enabled).click();
+        typeResult.should(Condition.enabled).click();
         input.pressEnter();
         typeOfEnterprise.pressEnter();
-        districtSelection.click();
+        districtSelection.should(Condition.enabled).click();
         input.setValue(district).pressEnter();
-        citySelection.click();
+        citySelection.should(Condition.enabled).click();
         input.setValue(city).pressEnter();
-        serviceAreaSelection.click();
+        serviceAreaSelection.should(Condition.enabled).click();
         input.setValue(serviceArea).pressEnter();
-        activateRegistrationButton.click();
+        activateRegistrationButton.should(Condition.enabled).click();
         return new EnterpriseCardPage();
     }
 
     public EnterpriseCardPage getNewEnterprise
             (Enterprise enterprise) {
-        chooseOwnerButton.click();
+        chooseOwnerButton.should(Condition.enabled).click();
         OwnerModalWindow ownerModalWindow = new OwnerModalWindow();
         ownerModalWindow.getOwner(enterprise);
         nameOfEnterpriseField.setValue(enterprise.getName());
-        typeOfEnterprise.click();
+        typeOfEnterprise.should(Condition.enabled).click();
         input.setValue(enterprise.getTypeOfEnterprise()).pressEnter();
-        districtSelection.click();
+        districtSelection.should(Condition.enabled).click();
         input.setValue(enterprise.getDistrict()).pressEnter();
-        citySelection.click();
+        citySelection.should(Condition.enabled).click();
         input.setValue(enterprise.getCity()).pressEnter();
         Selenide.sleep(1000);
         if (enterprise.getStreet() != null) {
-            streetSelection.click();
+            streetSelection.should(Condition.enabled).click();
             input.setValue(enterprise.getStreet()).pressEnter();
         }
         houseNumberDiv.setValue(enterprise.getHouse()).pressEnter();
         //houseNumber.setValue(enterprise.getHouse()).pressEnter();
         Selenide.sleep(2000);
-        serviceAreaSelection.click();
+        serviceAreaSelection.should(Condition.enabled).click();
         input.setValue(enterprise.getServiceArea()).pressEnter();
-        activateRegistrationButton.click();
-
-        Selenide.sleep(2500);
-
-        return new EnterpriseCardPage();
-    }
-
-
-    public EnterpriseCardPage getEditEnterprise(String newNameOfEnterprise){
-        Selenide.sleep(5000);
-        nameOfEnterpriseField.clear();
-        nameOfEnterpriseField.setValue(newNameOfEnterprise);
-        Selenide.sleep(3000);
-        saveButton.click();
-        Selenide.sleep(3000);
+        activateRegistrationButton.should(Condition.enabled).click();
         return new EnterpriseCardPage();
     }
 }

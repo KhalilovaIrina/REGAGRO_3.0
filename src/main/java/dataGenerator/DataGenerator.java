@@ -11,79 +11,73 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class DataGenerator {
-    private static final Faker faker = new Faker(new Locale("ru"));
+    private final Faker faker = new Faker(new Locale("ru"));
+    Random random = new Random();
 
-
-    public static String getNickname() {
+    public String getNickname() {
         return  faker.name().firstName();
     }
 
-    public static String getFullName() {
+    public String getFullName() {
         return faker.name().fullName();
     }
 
-    public static String getNumber(int length) {
+    public String getNumber(int length) {
         return faker.number().digits(length);
     }
 
-    public static String getNumberWithFirst(String firstNumber, int length) {
+    public String getNumberWithFirst(String firstNumber, int length) {
         return firstNumber + faker.number().digits(length);
     }
 
-    public static String getNumber(int from, int before) {
+    public String getNumberRange(int from, int before) {
         return String.valueOf(range(from, before));
     }
 
-    public static String getLocalDate() {
-        String day = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
-        String month = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
-        String year = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
-        return (day + month + year);
+    public String getLocalDate() {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("ddMMyyyy"));
+    }
+    public String getPastDate() {
+        LocalDate birthDate = LocalDate.now().minusMonths(range(1,11)).minusYears(range(1,3));
+        return birthDate.format(DateTimeFormatter.ofPattern("ddMMyyyy"));
     }
 
-    public static String getPastDate() {
-        String day = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
-        String month = LocalDate.now().minusMonths(range(1, 11)).format(DateTimeFormatter.ofPattern("MM"));
-        String year = LocalDate.now().minusYears(range(1, 3)).format(DateTimeFormatter.ofPattern("yyyy"));
-        return (day + month + year);
+    public String getPastDateForBirthGround() {
+        int randomInt = random.nextInt(6)+1; // Рандомное число от 1 до 6 для "Рождение"
+      LocalDate birthDate = LocalDate.now().minusMonths(randomInt);
+        return birthDate.format(DateTimeFormatter.ofPattern("ddMMyyyy"));
     }
 
-    public static String getPastDateForBirthGround() {
-        String day = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
-        String month = LocalDate.now().minusMonths(range(0, 6)).format(DateTimeFormatter.ofPattern("MM"));
-        String year = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
-        return (day + month + year);
-    }
-
-    public static List<String> getDateRange(String ground) {
+    public List<String> getDateRange(String ground) {
         List<String> dateRange = new ArrayList<>();
+        LocalDate currentDate = LocalDate.now();
         int randomInt;
-        if (ground.equals("Рождение")) {
-            randomInt = range(1, 5);
+
+        if (ground.contains("Рождение")) {
+            randomInt = random.nextInt(6); // Рандомное число от 1 до 6 для "Рождение"
         } else {
-            randomInt = range(1, 11);
+            randomInt = random.nextInt(10) + 1; // Рандомное число от 1 до 10 для других случаев
         }
-        String day = LocalDate.now().format(DateTimeFormatter.ofPattern("dd"));
-        String monthFrom = LocalDate.now().minusMonths(randomInt).format(DateTimeFormatter.ofPattern("MM"));
-        String monthBefore = LocalDate.now().minusMonths(randomInt - 1).format(DateTimeFormatter.ofPattern("MM"));
-        String year = LocalDate.now().minusYears(range(1, 3)).format(DateTimeFormatter.ofPattern("yyyy"));
-        dateRange.add(day + monthFrom + year);
-        dateRange.add(day + monthBefore + year);
+
+        LocalDate fromDate = currentDate.minusMonths(randomInt);
+        LocalDate toDate = fromDate.plusMonths(1);
+
+        if (fromDate.isAfter(currentDate)) {
+            fromDate = currentDate;
+        }
+
+        dateRange.add(fromDate.format(DateTimeFormatter.ofPattern("ddMMyyyy")));
+        dateRange.add(toDate.format(DateTimeFormatter.ofPattern("ddMMyyyy")));
+
         return dateRange;
     }
 
-    private static int range(int min, int max) {
+    public int range(int min, int max) {
         Random random = new Random();
-        int range = min + random.nextInt(max - min + 1);
-        return range;
+        return min + random.nextInt(max - min + 1);
     }
 
-    public String getRandomValue(List<String> handbooks) {
-        Random random = new Random();
-        return handbooks.get(random.nextInt(handbooks.size()));
-    }
-
-    public static String getEnterpriseName(){
+    public String getEnterpriseName(){
         return faker.company().name();
     }
 }

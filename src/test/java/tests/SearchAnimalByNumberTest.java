@@ -20,11 +20,11 @@ import static com.codeborne.selenide.Selenide.open;
 public class SearchAnimalByNumberTest {
     @BeforeAll
     static void setUpAll() {
-        //Configuration.headless = true;
+        Configuration.headless = true;
         SelenideLogger.addListener("allure", new AllureSelenide());
         open("https://v3.dev.regagro.ru/");
-        AuthPage.authSuperAdmin();
-        Configuration.holdBrowserOpen = true;
+        AuthPage authPage = new AuthPage();
+        authPage.authSuperAdmin();
     }
     @AfterAll
     static void tearDownAll() {

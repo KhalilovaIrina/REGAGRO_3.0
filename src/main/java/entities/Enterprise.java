@@ -11,13 +11,12 @@ import lombok.Getter;
 import java.util.List;
 import java.util.Random;
 
-import static io.restassured.RestAssured.given;
-
 @Getter
 public class Enterprise {
     private final Address address = new Address();
     Random random = new Random();
     DBHelper dbHelper = new DBHelper();
+    DataGenerator dataGenerator = new DataGenerator();
     private String uuid = "5e465691-de23-4c4e-9f46-f35a125b5970";
 
     private final String baseUri = "https://v3.dev.regagro.ru";
@@ -25,20 +24,18 @@ public class Enterprise {
     private String path = pathAddress + uuid + "/children?levels=";
 
     private final String ownerInn = "7736280231";
-    private final String name = DataGenerator.getEnterpriseName();
+    private final String name = dataGenerator.getEnterpriseName();
     private final String typeOfEnterprise = setEnterpriseType();
     private final String region = "Орловская";
     private final String district = setDistrict();
     private final String city = setCity();
     //private String planningStructure;
     private final String street = setStreet();
-    private final String house = DataGenerator.getNumber(2);
+    private final String house = dataGenerator.getNumberRange(1,30);
     private final String serviceArea = "2";
-    //private String countOfAnimals;
 
     public Address getRandomAddress(String level) {
-        RequestSpecificationCreator recCreator = new RequestSpecificationCreator();
-        RequestSpecification reqSpec = recCreator.getReqSpec(baseUri);
+        RequestSpecification reqSpec = RequestSpecificationCreator.getReqSpec(baseUri);
         Response response = RestAssured.given()
                 .spec(reqSpec)
                 .when()
@@ -77,7 +74,7 @@ public class Enterprise {
                 "FROM enterprise_types\n" +
                 "JOIN legal_form_enterprise_types\n" +
                 "ON enterprise_types.id = legal_form_enterprise_types.enterprise_type_id\n" +
-                "WHERE legal_form_enterprise_types.legal_form_id =" + legalFormId + " AND deleted_at IS NULL", "handbooks", "name");
+                "WHERE legal_form_enterprise_types.legal_form_id =" + legalFormId + " AND deleted_at IS NULL", "regagro_3_0_handbooks", "name");
         return enterpriseTypes.get(random.nextInt(enterpriseTypes.size()));
     }
 //
